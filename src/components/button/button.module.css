@@ -1,0 +1,69 @@
+.spinner svg circle {
+  stroke: #fff;
+}
+.spinner svg path {
+  stroke: #fff;
+}
+
+.text-spinner svg circle {
+  stroke: #000;
+}
+.text-spinner svg path {
+  stroke: #000;
+}
+
+.spinner-wrap {
+  height: 20px;
+}
+
+.spinner-wrap .spinner {
+  display: inline-block;
+  height: 20px;
+  animation: rotation 1s linear infinite;
+}
+
+.spinner-wrap .spinner svg {
+  width: 20px;
+  height: 20px;
+}
+
+.spinner-wrap .spinner svg circle {
+  stroke-width: 1.6px;
+}
+
+.spinner-wrap .spinner svg path {
+  stroke-width: 1.6px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ripples {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 1s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.5;
+  }
+
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}

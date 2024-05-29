@@ -1,0 +1,57 @@
+.input.ant-input:focus {
+  border-color: red;
+}
+
+/* input[type="number"] {
+  -moz-appearance: textfield;
+} */
+
+/* For webkit browsers like Chrome and Safari */
+/* input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
+/* input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  background-color: #ffffff !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+} */
+
+/* input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: #ffffff !important;
+  color: fieldtext !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+} */
+
+/* input[data-autocompleted] {
+  background-color: transparent !important;
+} */
+
+.disabled {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: rgba(0, 0, 0, 0.4) !important ;
+}
+.prefix,
+.suffix {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+.prefix svg {
+  color: rgba(0, 0, 0, 0.4) !important ;
+}
+.suffix svg {
+  color: rgba(0, 0, 0, 0.4) !important ;
+}

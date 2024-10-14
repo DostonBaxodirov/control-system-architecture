@@ -7,7 +7,6 @@ import cls from './icon.module.scss';
 export interface IIconProps {
   name: keyof typeof List;
   className?: string;
-  color?: string;
   cy?: string;
   onClick?: () => void;
   classNameIcon?: string;
@@ -17,7 +16,6 @@ const Icon: React.FC<IIconProps> = ({
   cy,
   name,
   className,
-  color,
   onClick,
   classNameIcon,
 }) => {

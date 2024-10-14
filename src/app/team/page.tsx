@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-const Team: FC = () =>{
-    const list = ''
+import { Main } from '@/components';
 
-    return <div>This is team page</div>
-}
+const Team: FC = () => {
+  const list = '';
 
-export default Team
+  return <Main>This is team page</Main>;
+};
+
+export default Team;

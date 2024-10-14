@@ -13,30 +13,26 @@ const Auth: FC = () => {
   return (
     <Form.Auth
       component={({ register, formState: { errors } }) => (
-        <div className={twMerge('flex h-screen w-full items-center justify-center ')}>
+        <div className={twMerge('flex h-screen w-full items-center justify-center px-4 ')}>
           <div className="flex w-full max-w-[450px] flex-col gap-[30px]">
-            <h2 className="text-left text-2xl font-medium md:text-center">Sign in</h2>
+            <h2 className="text-left text-2xl font-medium md:text-center">Kirish</h2>
             <div className="flex w-full flex-col gap-3">
               <Input
                 label={
                   <div>
-                    Support number <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
+                    Telefon raqam <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
                   </div>
                 }
                 maxLength={9}
                 {...register('phone')}
                 type="number"
-                placeholder="Mobile number"
+                placeholder="Telefon raqamni kiriting"
                 prefixClass="!bg-white-100"
                 prefix={<div className="flex cursor-not-allowed items-center gap-2 text-sm font-normal not-italic leading-[16.8px] tracking-[0.14px] text-black-100">+998</div>}
                 error={errors.phone?.message}
               />
-              <Input {...register('password')} label="Password" placeholder="Enter your password" error={errors.password?.message} />
-              <Button
-                styleType="md-green"
-                className="h-[44px] w-full font-normal hover:before:scale-90 disabled:text-black-100"
-                
-              >
+              <Input {...register('password')} label="Parol" placeholder="Parolni kiriting" error={errors.password?.message} />
+              <Button intent="green" className="h-[44px] w-full font-normal hover:before:scale-90 disabled:text-black-100">
                 Continue
               </Button>
             </div>

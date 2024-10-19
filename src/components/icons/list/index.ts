@@ -1,8 +1,16 @@
 export { default as access } from './access';
+export { default as cost } from './cost';
+export { default as error } from './error';
+export { default as integrations } from './integrations';
+export { default as like } from './like';
 export { default as loader } from './loader';
 export { default as menu } from './menu';
 export { default as menuSlim } from './menu-slim';
 export { default as open } from './open';
+export { default as plan } from './plan';
 export { default as project } from './project';
+export { default as successful } from './successful';
 export { default as team } from './team';
+export { default as tooltip } from './tooltip';
+export { default as up } from './up';
 export { default as warning } from './warning';

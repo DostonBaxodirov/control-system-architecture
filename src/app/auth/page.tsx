@@ -4,8 +4,8 @@ import { FC } from 'react';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
-import { Button, Input } from '@/components';
-import { Form } from '@/modules';
+import { Button, Input } from '~/components';
+import { Form } from '~/modules';
 
 const Auth: FC = () => {
   const { push } = useRouter();

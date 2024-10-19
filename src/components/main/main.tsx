@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { usePathname, useRouter } from 'next/navigation';
 
 import Icon from '../icons/icon';
+import MobileSidebar from '../mobile-sidebar/mobile-sidebar';
 import Sidebar from '../sidebar/sidebar';
 
 import cls from './main.module.scss';
@@ -28,20 +29,20 @@ const Main: FC<MainProps> = ({ children }) => {
                 {
                   key: '/team',
                   icon: <Icon name="team" classNameIcon=" w-[18px] h-[18px]" />,
-                  label: 'Team & Access',
+                  label: 'Jamoa',
                   onClick: () => push('/team')
                 },
                 {
-                  key: '/projects',
-                  icon: <Icon name="project" classNameIcon="w-[18px] h-[18px]" />,
-                  label: 'Deals',
-                  onClick: () => push('/deals')
+                  key: '/plan',
+                  icon: <Icon name="plan" classNameIcon="w-[18px] h-[18px]" />,
+                  label: 'Smeta reja',
+                  onClick: () => push('/plan')
                 },
                 {
-                  key: '/reports',
-                  icon: <Icon name="project" classNameIcon=" w-[18px] h-[18px]" />,
-                  label: 'Reports',
-                  onClick: () => push('/reports')
+                  key: '/cost',
+                  icon: <Icon name="cost" classNameIcon=" w-[18px] h-[18px]" />,
+                  label: 'Xarajatlar',
+                  onClick: () => push('/cost')
                 }
               ],
               newPage: true
@@ -56,6 +57,7 @@ const Main: FC<MainProps> = ({ children }) => {
           }}
         />
       </div>
+      <MobileSidebar />
       <div className={cls['main-content']}>{children}</div>
     </div>
   );

@@ -1,132 +1,70 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-// const cookies = new Cookies();
-// Axios instance
-export const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  headers: {}
-});
+class Http {
+  private static instance: Http;
 
-// for multiple requests
-let isRefreshing = false;
-let failedQueue: any = [];
+  private accessToken: string | null;
 
-const processQueue = (error: any, token = null) => {
-  failedQueue.forEach((prom: any) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
-  });
-  failedQueue = [];
-};
+  private api: AxiosInstance;
 
-http.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
+  private constructor() {
+    this.accessToken = localStorage.getItem('accessToken');
+    this.api = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL
+    });
 
-    if (error.response.status === 500) {
-      alert('An error is occurred, please contact to administrator');
-      throw error;
-    }
-
-    // eslint-disable-next-line no-underscore-dangle
-    if (error.response.status === 401 && !originalRequest._retry) {
-      if (isRefreshing) {
-        try {
-          const token = await new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject });
-          });
-
-          originalRequest.headers.Authorization = `Bearer ${token}`;
-          return await axios(originalRequest);
-        } catch (err) {
-          return await Promise.reject(err);
+    this.api.interceptors.request.use(
+      // @ts-ignore
+      (config: AxiosRequestConfig) => {
+        if (this.accessToken) {
+          config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${this.accessToken}`
+          };
         }
+        return config;
+      },
+      (error: AxiosError) => Promise.reject(error)
+    );
+
+    this.api.interceptors.response.use(
+      (response: AxiosResponse) => response,
+      (error: AxiosError) => {
+        if (error.response && error.response.status === 401) {
+          console.log('Token expired or missed');
+          this.handleTokenExpiration();
+        }
+        return Promise.reject(error);
       }
-
-      // eslint-disable-next-line no-underscore-dangle
-      originalRequest._retry = true;
-      
-      isRefreshing = true;
-
-      const refresh_token = localStorage.getItem('refresh_token');
-
-      return new Promise((resolve, reject) => {
-        axios
-          .post(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/user/token/refresh`,
-            {
-              refresh: localStorage.getItem('refresh_token')
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${refresh_token}`
-              }
-            }
-          )
-          .then(({ data }) => {
-            localStorage.setItem('access_token', data?.access);
-
-            axios.defaults.headers.common.Authorization = `Bearer ${data.access}`;
-            originalRequest.headers.Authorization = `Bearer ${data.access}`;
-
-            processQueue(null, data.access);
-            resolve(axios(originalRequest));
-          })
-          .catch(err => {
-            if (error.response.data.message === 'Unauthenticated.') {
-              alert('Your activation time has expired, please log in again');
-            }
-            processQueue(err, null);
-            reject(err);
-          })
-          .finally(() => {
-            isRefreshing = false;
-          });
-      });
-    }
-
-    return Promise.reject(error);
+    );
   }
-);
 
-// // Add a request interceptor
-http.interceptors.request.use(
-  (config: any) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
-    return config;
-  },
-  async error => {
-    if (error.response.data.code === 500) {
-      alert('An error is occurred, please contact to administrator');
-      return;
+  public static getInstance(): Http {
+    if (!Http.instance) {
+      Http.instance = new Http();
     }
-
-    if (error.response.data.message === 'Unauthenticated.') {
-      try {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/user/token/refresh`,
-          { refresh: localStorage.getItem('refresh_token') },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('refresh_token')}`
-            }
-          }
-        );
-
-        if (res.data) {
-          localStorage.setItem('access_token', res?.data?.access);
-        }
-      } catch (err) {
-        if (error.response.data.message === 'Unauthenticated.') {
-          alert('Your activation time has expired, please log in again!');
-        }
-      }
-    }
-    // eslint-disable-next-line consistent-return
-    return Promise.reject(error);
+    return Http.instance;
   }
-);
+
+  private handleTokenExpiration(): void {
+    window.location.href = '/auth';
+  }
+
+  public async get<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.api.get<T>(url, config);
+  }
+
+  public async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.api.post<T>(url, data, config);
+  }
+
+  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.api.put<T>(url, data, config);
+  }
+
+  public async delete<T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
+    return this.api.delete<T>(url, config);
+  }
+}
+
+export const http = Http.getInstance();

@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC } from 'react';
 
-const Cost:FC =()=>{
-    const a=''
+import { Main } from '~/components';
 
-    return <div>Costs</div>
-}
+const Cost: FC = () => {
+  const a = '';
 
-export default Cost
+  return <Main>Costs</Main>;
+};
+
+export default Cost;

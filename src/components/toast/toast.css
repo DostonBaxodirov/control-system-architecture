@@ -1,0 +1,77 @@
+.ant-message-notice-content span {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 14.4px; /* 120% */
+  letter-spacing: 0.12px;
+}
+
+.ant-message .ant-message-notice-wrapper {
+  padding: 19px 0 !important;
+  background: linear-gradient(180deg, #00000033 0%, #00000000 100%) !important;
+}
+
+.ant-message-notice-error .ant-message-notice-content {
+  background: transparent !important;
+  border-radius: 100px !important;
+  background-color: #ffffff !important;
+  overflow: hidden;
+  padding: 8px 12px !important;
+  border: 1px solid #00000033;
+  box-shadow: 0px 0px 10px 0px #00000014;
+}
+
+.ant-message-notice-error .ant-message-custom-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ant-message-notice-warning .ant-message-notice-content {
+  background: transparent !important;
+  border-radius: 100px !important;
+  background-color: #ffffff !important;
+  overflow: hidden;
+  padding: 8px 12px !important;
+  border: 1px solid #00000033;
+  box-shadow: 0px 0px 10px 0px #00000014;
+}
+
+.ant-message-notice-warning .ant-message-custom-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ant-message-notice-success .ant-message-notice-content {
+  background: transparent !important;
+  border-radius: 100px !important;
+  background-color: #ffffff !important;
+  overflow: hidden;
+  padding: 8px 12px !important;
+  border: 1px solid #00000033;
+  box-shadow: 0px 0px 10px 0px #00000014;
+}
+
+.ant-message-notice-success .ant-message-custom-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ant-message-notice-info .ant-message-notice-content {
+  background: transparent !important;
+  border-radius: 100px !important;
+  background-color: #ffffff !important;
+  overflow: hidden;
+  padding: 8px 12px !important;
+  border: 1px solid #00000033;
+  box-shadow: 0px 0px 10px 0px #00000014;
+}
+
+.ant-message-notice-info .ant-message-custom-content {
+  @apply flex items-center gap-2;
+}
+
+.ant-message {
+  @apply !top-0;
+}

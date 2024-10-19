@@ -1,1 +1,1 @@
-export * as Form from './form'
+export * as Form from './auth/form'

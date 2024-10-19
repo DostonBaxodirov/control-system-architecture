@@ -1,0 +1,240 @@
+.wrapper {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.wrapper th::before {
+  display: none !important;
+}
+
+.wrapper :global(.ant-table-thead) {
+  height: 60px !important;
+}
+
+.wrapper :global(.ant-table-footer) {
+  background: transparent;
+}
+.wrapper :global(th.ant-table-column-sort) {
+  background: #fafafa !important;
+}
+.wrapper :global(td.ant-table-column-sort) {
+  background: none;
+}
+
+.wrapper tr th {
+  color: rgba(0, 0, 0, 0.6) !important;
+  // font-family: Aeonik;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500 !important;
+  line-height: normal;
+  letter-spacing: 0.12px;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.wrapper tbody tr td {
+  overflow: hidden;
+  color: #000;
+  text-overflow: ellipsis;
+  // font-family: Aeonik;
+  font-size: 14px !important;
+  font-style: normal;
+  font-weight: 400 !important;
+  line-height: normal;
+  letter-spacing: 0.14px;
+}
+
+.wrapper :global(.ant-pagination) {
+  margin: 20px !important;
+}
+
+.wrapper {
+  .pagination-prev,
+  .pagination-next {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--black-100, #000000);
+    font-weight: 500;
+    font-size: 14px;
+    // font-family: Aeonik, sans-serif;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.14px;
+    text-align: center;
+
+    span {
+      height: 16px;
+    }
+  }
+
+  :global(.ant-pagination) {
+    display: flex !important;
+    align-items: center !important;
+    width: max-content !important;
+    float: right;
+    margin: 20px !important;
+    padding: 0 !important;
+    border: 1px solid var(--black-8, rgba(0, 0, 0, 0.08)) !important;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden;
+  }
+  :global(.ant-pagination .ant-pagination-item) {
+    width: 40px !important;
+    height: 34px !important;
+    margin-right: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-right: 1px solid var(--black-8, rgba(0, 0, 0, 0.08)) !important;
+    border-radius: 0 !important;
+  }
+  :global(.ant-pagination .ant-pagination-item):hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+  }
+  :global(.ant-pagination .ant-pagination-item):hover a {
+    color: #000000 !important;
+  }
+  :global(.ant-pagination .ant-pagination-item.ant-pagination-item-active) {
+    background: #00000008 !important;
+    border-right: 1px solid #00000014 !important;
+  }
+  :global(.ant-pagination-item-active a) {
+    color: var(--black-100, #000000) !important;
+  }
+  :global(.ant-pagination li) {
+    color: var(--black-100, #000000);
+    font-weight: 520;
+    font-size: 14px;
+    // font-family: Aeonik, sans-serif;
+    font-style: normal;
+    line-height: 20px;
+    text-align: center;
+  }
+  :global(.ant-pagination .ant-pagination-item a) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  :global(.ant-pagination-prev) {
+    height: 34px !important;
+    margin-right: 0 !important;
+    padding: 0 16px !important;
+    border-right: 1px solid #00000014 !important;
+    border-radius: 0 !important;
+  }
+  :global(.ant-pagination-prev button) {
+    border: none !important;
+  }
+  :global(.ant-pagination-prev button):hover {
+    color: #000000 !important;
+    background: var(--select-input-active) !important;
+  }
+  :global(.ant-pagination-prev a) {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px !important;
+    height: 34px !important;
+    color: #000000 !important;
+  }
+  :global(.ant-pagination-next a) {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 36px !important;
+    height: 34px !important;
+    color: #000000 !important;
+    transform: rotate(180deg);
+  }
+  :global(.ant-pagination-next) {
+    height: 34px !important;
+    padding: 0 16px !important;
+    border-radius: 0 !important ;
+  }
+  :global(.ant-pagination-next button) {
+    border: none !important;
+  }
+  :global(.ant-pagination-next button):hover {
+    color: #000000 !important;
+    background: var(--select-input-active) !important;
+  }
+  :global(.ant-pagination-jump-next) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 4px !important;
+  }
+  :global(.ant-pagination-jump-next):hover:hover span {
+    color: #000000 !important;
+  }
+  :global(.ant-pagination-jump-prev) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 4px !important;
+  }
+  :global(.ant-pagination-jump-prev):hover:hover span {
+    color: #000000 !important;
+  }
+  :global(.ant-pagination-jump-next a) {
+    width: 24px !important;
+  }
+  :global(.ant-pagination-jump-prev a) {
+    width: 24px !important;
+  }
+  .pagination-prev,
+  .pagination-next {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    font-size: 14px;
+    // font-family: Aeonik, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.14px;
+    text-align: center;
+  }
+  .pagination-prev span,
+  .pagination-next span {
+    height: 16px;
+  }
+
+  .border td {
+    border-bottom: 0 !important;
+  }
+
+  .border th {
+    border-bottom: 0 !important;
+  }
+}
+
+.wrapper :global(.ant-table-row-indent) {
+  padding-left: 0 !important;
+}
+
+.wrapper :global(.ant-pagination-item) {
+  display: none !important;
+}
+
+.wrapper :global(.ant-pagination-disabled) {
+  background: rgba(0, 0, 0, 0.05);
+}
+.wrapper :global(.ant-pagination-jump-next-custom-icon) {
+  display: none !important;
+}
+.wrapper :global(.ant-pagination-jump-prev-custom-icon) {
+  display: none !important;
+}

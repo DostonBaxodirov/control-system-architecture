@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div className="mb-5 h-[1px] w-full bg-[#e0e0e0]" />
     <div className="flex h-[calc(100vh_-_83px)] w-full flex-col justify-between pb-7">
       <div className="w-full">
-        {accountSelector && <div className={twMerge(cx(cls['account-selector-sidebar'], 'px-2 transition-all duration-300', open && 'px-5'))}>{accountSelector}</div>}
+        {accountSelector && <div className={twMerge(cx( 'px-2 transition-all duration-300', open && 'px-5'))}>{accountSelector}</div>}
         <div className={twMerge(cx(cls.items, 'px-2 transition-all duration-300', open && 'px-5', bodyClassName))}>
           {items.slice(0, 1).map((item, index) => (
             <CustomMenu activeKey={activeKey} open={open} key={item.title || index} menuItems={item} {...args} />

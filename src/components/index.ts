@@ -3,5 +3,6 @@ export { default as Icon } from './icons/icon';
 export { default as Input } from './input/input';
 export { default as Main } from './main/main';
 export { default as MobileSidebar } from './mobile-sidebar/mobile-sidebar';
+export { default as Select } from './select/select';
 export { default as Sidebar } from './sidebar/sidebar';
 export { default as toast } from './toast/toast';

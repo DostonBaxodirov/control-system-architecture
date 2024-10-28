@@ -8,7 +8,7 @@ import rootReducer from './reducer';
 import * as Types from './types';
 
 const persistConfig: any = {
-  key: 'persist-store',
+  key: 'csa-storage',
   storage,
   whiteList: []
 };

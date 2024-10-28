@@ -4,6 +4,7 @@ import { FC, ReactNode, useState } from 'react';
 import cx from 'classnames';
 import { usePathname, useRouter } from 'next/navigation';
 
+import AccountSelector from '../account-selector/account-selector';
 import Icon from '../icons/icon';
 import MobileSidebar from '../mobile-sidebar/mobile-sidebar';
 import Sidebar from '../sidebar/sidebar';
@@ -33,6 +34,12 @@ const Main: FC<MainProps> = ({ children }) => {
                   onClick: () => push('/team')
                 },
                 {
+                  key: '/projects',
+                  icon: <Icon name="project" classNameIcon=" w-[18px] h-[18px]" />,
+                  label: 'Loyixalar',
+                  onClick: () => push('/projects')
+                },
+                {
                   key: '/plan',
                   icon: <Icon name="plan" classNameIcon="w-[18px] h-[18px]" />,
                   label: 'Smeta reja',
@@ -50,6 +57,7 @@ const Main: FC<MainProps> = ({ children }) => {
           ]}
           // selectedKey={`/${pathname.split('/')[1]}`}
           testMode={<></>}
+          accountSelector={<AccountSelector />}
           open={!!localStorage.getItem('sidebarOpen')}
           onOpen={() => {
             setOpen(!open);

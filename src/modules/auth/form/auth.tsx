@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { InferType } from 'yup';
 
+import { login, useDispatch } from '~/store';
+
 import { authSchema } from './schema';
 
 type TForm = InferType<typeof authSchema>;
@@ -18,6 +20,7 @@ interface AuthProps {
 const Auth: FC<AuthProps> = ({ component }) => {
   const { push } = useRouter();
   const form = useForm<TForm>({ resolver: yupResolver(authSchema) });
+  const dispatch = useDispatch();
 
   const mutation = useMutation<any, string, TForm>({
     mutationFn: async values => {
@@ -28,6 +31,7 @@ const Auth: FC<AuthProps> = ({ component }) => {
     onSuccess: values => {
       toast.success('Logged in successfully!');
       localStorage.setItem('accessToken', values.AccessToken);
+      dispatch(login({ userId: values.User.ID }));
       push('/team');
       console.log('values', values);
     },

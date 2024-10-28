@@ -1,5 +1,6 @@
 export { default as access } from './access';
 export { default as cost } from './cost';
+export { default as crossClose } from './cross-close';
 export { default as error } from './error';
 export { default as integrations } from './integrations';
 export { default as like } from './like';

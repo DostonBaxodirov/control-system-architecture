@@ -1,29 +1,34 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { Button, Main } from '~/components';
 import Table from '~/components/table/table';
 import { useTeam } from '~/modules/team';
 
+import { AddUser } from './_components';
+
 const Team: FC = () => {
   const { isLoading, users } = useTeam();
+  const [open, setOpen] = useState(false);
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
   return (
     <Main>
-      <div className="w-full flex justify-between items-center p-3">
-        <p className='text-lg font-medium'>Jamoa</p>
-        <Button intent='default' size='sm' className='w-max'>Qo'shish</Button>
+      <div className="flex w-full items-center justify-between p-3">
+        <p className="text-lg font-medium">Jamoa</p>
+        <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+          Qo'shish
+        </Button>
       </div>
       <Table
         dataSource={users}
         columns={[
-          {
-            title: 'Id',
-            key: 'ID',
-            dataIndex: 'ID'
-          },
+          // {
+          //   title: 'Id',
+          //   key: 'ID',
+          //   dataIndex: 'ID'
+          // },
           {
             title: 'Ism familiya',
             key: 'FullName',
@@ -38,9 +43,10 @@ const Team: FC = () => {
             title: 'Role',
             key: 'Role',
             dataIndex: 'Role'
-          },
+          }
         ]}
       />
+      <AddUser open={open} setOpen={setOpen} />
     </Main>
   );
 };

@@ -1,15 +1,15 @@
 export interface Plan {
-  ID: string;
-  Name: string;
-  CreateAt: string;
-  ProjectID: string;
-  UserID: string;
-  Type: string;
-  Duration: number;
-  UnitOfMeasure: string;
-  Quantity: number;
-  SumOfUnit: number;
-  TotalAmount: number;
-  Currency: string;
-  Status: string;
+  id: string;
+  name: string;
+  createAt: string;
+  projectID: string;
+  userId: string;
+  type: string;
+  duration: number;
+  unitOfMeasure: string;
+  quantity: number;
+  sumOfUnit: number;
+  totalAmount: number;
+  currency: string;
+  status: string;
 }

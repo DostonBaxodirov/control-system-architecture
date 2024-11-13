@@ -4,6 +4,12 @@ import { logout, store } from '~/store';
 
 const { dispatch } = store;
 
+let accessToken: string | null
+
+if (typeof window !== 'undefined') {
+  accessToken = localStorage.getItem('accessToken');
+}
+
 class Http {
   private static instance: Http;
 
@@ -12,7 +18,7 @@ class Http {
   private api: AxiosInstance;
 
   private constructor() {
-    this.accessToken = localStorage.getItem('accessToken');
+    this.accessToken = accessToken;
     this.api = axios.create({
       baseURL: process.env.NEXT_PUBLIC_BASE_URL
     });

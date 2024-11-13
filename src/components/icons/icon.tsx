@@ -12,18 +12,10 @@ export interface IIconProps {
   classNameIcon?: string;
 }
 
-const Icon: React.FC<IIconProps> = ({
-  cy,
-  name,
-  className,
-  onClick,
-  classNameIcon,
-}) => {
+const Icon: React.FC<IIconProps> = ({ cy, name, className, onClick, classNameIcon }) => {
   const IconItem = List[name];
 
   if (!IconItem) {
-    console.log('Icon component not found');
-
     return null;
   }
 
@@ -34,7 +26,7 @@ const Icon: React.FC<IIconProps> = ({
       style={{
         width: classNameIcon ? 'max-content' : '20px',
         height: classNameIcon ? 'max-content' : '20px',
-        display: 'block',
+        display: 'block'
       }}
       data-cy={cy}
     >

@@ -7,5 +7,6 @@ export interface Project {
   startDate: string;
   endDate: string;
   spentCost: string;
+  currency: string
   type: string;
 }

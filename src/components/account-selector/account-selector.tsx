@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Dropdown, MenuProps } from 'antd';
 import cx from 'classnames';
 
-import useAuth from '~/hooks/use-auth';
+import { useAuth } from '~/hooks';
 import { useProjects } from '~/modules/projects';
 import { Project } from '~/modules/projects/types';
 import { changeProjectId } from '~/store';
@@ -14,12 +14,6 @@ import Icon from '../icons/icon';
 
 import cls from './account-selector.module.scss';
 
-// export type AccountDetails = {
-//   name: string;
-//   id: string;
-//   activeSelector?: boolean;
-//   open?: boolean;
-// };
 interface AccountCardProps extends Project {
   onClick: (id: string) => void;
   activeSelector?: boolean;
@@ -31,11 +25,11 @@ export interface AccountSelectorProps {
   openAccountSelector?: boolean;
 }
 
-const AccountCard: React.FC<AccountCardProps> = ({ name, id, onClick, activeSelector=false, open }) => (
+const AccountCard: React.FC<AccountCardProps> = ({ name, id, onClick, activeSelector = false, open }) => (
   <div
     className={cx(
       ' flex cursor-pointer items-center gap-2 rounded-xl bg-white-100 p-1 transition-all duration-200 hover:bg-black-3',
-      activeSelector && "bg-black-3",
+      activeSelector && 'bg-black-3',
       open && 'bg-black-5'
     )}
     onClick={() => {
@@ -67,6 +61,10 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
 
   useEffect(() => {
     if (projectId) setSelectedAccount(projects.find(item => item.id === projectId));
+    else if (projects.length) {
+      setSelectedAccount(projects[0]);
+      dispatch(changeProjectId({ id: projects[0].id }));
+    }
   }, [projects]);
 
   useEffect(() => {
@@ -121,7 +119,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
         onOpenChange={() => setOpen(!open)}
         open={!!open}
       >
-        <div className="relative border rounded-xl border-black-8" onClick={e => e.stopPropagation()}>
+        <div className="relative rounded-xl border border-black-8" onClick={e => e.stopPropagation()}>
           <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} open={!!open} />
           {projects && projects.length > 1 && (
             <div onClick={() => setOpen(!open)} className={cx('absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer', true && 'right-[-5px] rounded-xl bg-white-100')}>

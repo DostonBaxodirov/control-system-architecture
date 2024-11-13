@@ -1,8 +1,10 @@
 export { default as Button } from './button/button';
+export { default as CurrencySelect } from './currency-select/currency-select';
 export { default as Icon } from './icons/icon';
 export { default as Input } from './input/input';
 export { default as Main } from './main/main';
 export { default as MobileSidebar } from './mobile-sidebar/mobile-sidebar';
 export { default as Select } from './select/select';
 export { default as Sidebar } from './sidebar/sidebar';
+export { default as TextArea } from './textarea/textarea';
 export { default as toast } from './toast/toast';

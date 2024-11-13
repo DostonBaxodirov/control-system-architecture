@@ -6,6 +6,7 @@ import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-qu
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { Auth } from '~/modules/auth/containers';
 import { persist, store } from '~/store';
 import { onError } from '~/utils/error';
 
@@ -18,8 +19,8 @@ const Provider = ({ children }: { children: ReactNode }) => (
   <ReduxProvider store={store}>
     <PersistGate persistor={persist}>
       <QueryClientProvider client={client}>
-        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+        <Auth>{children}</Auth>
       </QueryClientProvider>
     </PersistGate>
   </ReduxProvider>

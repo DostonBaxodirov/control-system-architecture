@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import useAuth from '~/hooks/use-auth';
+import { useAuth } from '~/hooks';
 import { http } from '~/services';
 
-import * as Mapper from '../mapper';
 import * as Types from '../types';
 
 type TQuery = {
@@ -17,11 +16,9 @@ const useProjects = () => {
   const { data = initialData, ...args } = useQuery<unknown, string, TQuery>({
     queryKey: ['PROJECTS'],
     queryFn: async () => {
-      const { data } = await http.get<any[]>(`/user-projects/${userId}`);
+      const { data } = await http.get<Types.Project[]>(`/user-projects/${userId}`);
 
-      const projects = data.map(Mapper.Project);
-
-      return { projects };
+      return { projects: data };
     },
     staleTime: 900000
   });

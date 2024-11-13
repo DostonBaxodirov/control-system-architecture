@@ -1,5 +1,9 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
+import { logout, store } from '~/store';
+
+const { dispatch } = store;
+
 class Http {
   private static instance: Http;
 
@@ -31,8 +35,8 @@ class Http {
       (response: AxiosResponse) => response,
       (error: AxiosError) => {
         if (error.response && error.response.status === 401) {
-          console.log('Token expired or missed');
           this.handleTokenExpiration();
+          dispatch(logout());
         }
         return Promise.reject(error);
       }

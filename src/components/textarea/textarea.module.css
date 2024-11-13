@@ -1,0 +1,31 @@
+.input.ant-input:focus {
+  border-color: red;
+}
+
+.input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* For webkit browsers like Chrome and Safari */
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input {
+  scrollbar-color: rgba(0, 0, 0, 0.4);
+  scrollbar-width: 4px;
+  scroll-padding-top: 10px;
+}
+
+/* textarea::-webkit-scrollbar {
+  width: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  padding-left: 4px;
+}
+
+
+textarea::-webkit-scrollbar-track {
+  background: red;
+} */

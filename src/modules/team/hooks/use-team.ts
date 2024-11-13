@@ -18,7 +18,8 @@ const useTeam = () => {
 
       return { users: data };
     },
-    staleTime: 1200000
+    staleTime: 1200000,
+    retry:false
   });
 
   return { ...data, ...args };

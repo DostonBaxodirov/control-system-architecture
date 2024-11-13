@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 
-import { Button, Main } from '~/components';
+import { Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
 import { useTeam } from '~/modules/team';
 
@@ -17,9 +17,12 @@ const Team: FC = () => {
     <Main>
       <div className="flex w-full items-center justify-between p-3">
         <p className="text-lg font-medium">Jamoa</p>
-        <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
-          Qo'shish
-        </Button>
+        <div className=" flex w-max gap-2">
+          <CurrencySelect />
+          <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+            Qo'shish
+          </Button>
+        </div>
       </div>
       <Table
         dataSource={users}

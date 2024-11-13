@@ -17,7 +17,8 @@ const useRole = () => {
 
       return { roles: data };
     },
-    staleTime: 900000
+    staleTime: 900000,
+    retry: false
   });
 
   return { ...data, ...args };

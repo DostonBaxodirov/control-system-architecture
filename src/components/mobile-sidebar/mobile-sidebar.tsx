@@ -32,7 +32,7 @@ const MobileSidebar: FC = () => {
         onClick={() => push('/plan')}
       >
         <Icon name="plan" classNameIcon=" w-[18px] h-[18px]" />
-        <p className=" text-sm font-medium">Smeta reja</p>
+        <p className=" text-sm font-medium">Smeta</p>
       </div>
       <div
         className={cx('flex cursor-pointer flex-col items-center justify-center gap-1 p-2', pathname.split('/')[1].includes('cost') && 'rounded-md bg-black-3')}

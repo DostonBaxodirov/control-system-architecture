@@ -1,7 +1,12 @@
 .wrapper {
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  overflow: auto;
+
+  :global(.ant-table-thead .ant-table-cell) {
+    white-space: nowrap !important;
+    padding: 4px 16px !important;
+  }
 }
 
 .wrapper th::before {
@@ -9,7 +14,8 @@
 }
 
 .wrapper :global(.ant-table-thead) {
-  height: 60px !important;
+  height: 40px !important;
+  overflow: hidden;
 }
 
 .wrapper :global(.ant-table-footer) {

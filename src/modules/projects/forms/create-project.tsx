@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { InferType } from 'yup';
 
-import useAuth from '~/hooks/use-auth';
+import { useAuth } from '~/hooks';
 import { http } from '~/services';
 
 import { createProjectSchema } from './schema';

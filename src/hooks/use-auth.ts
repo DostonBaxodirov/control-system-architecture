@@ -1,20 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getProjectId, getUserId, logout as baseLogout } from '~/store';
+import { getCurrencyId, getIsLoggedIn, getProjectId, getUserId, logout as baseLogout } from '~/store';
 
 interface TReturn {
   userId: string;
   projectId: string;
+  currencyId: string;
+  isLoggedIn: boolean;
   methods: {
     logout: () => void;
   };
 }
 
-const useAuth = (): TReturn => {
+export const useAuth = (): TReturn => {
   const dispatch = useDispatch();
 
   const userId = useSelector(getUserId)!;
   const projectId = useSelector(getProjectId)!;
+  const currencyId = useSelector(getCurrencyId)!;
+  const isLoggedIn = useSelector(getIsLoggedIn)!;
 
   const logout = () => {
     localStorage.setItem('accessToken', '');
@@ -24,10 +28,11 @@ const useAuth = (): TReturn => {
   return {
     userId,
     projectId,
+    currencyId,
+    isLoggedIn,
     methods: {
       logout
     }
   };
 };
 
-export default useAuth;

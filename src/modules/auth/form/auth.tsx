@@ -33,7 +33,6 @@ const Auth: FC<AuthProps> = ({ component }) => {
       localStorage.setItem('accessToken', values.AccessToken);
       dispatch(login({ userId: values.User.ID }));
       push('/team');
-      console.log('values', values);
     },
     onError: () => {
       toast.error('Something is wrong please try again.');

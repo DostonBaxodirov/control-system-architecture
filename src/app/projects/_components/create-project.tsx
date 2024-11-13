@@ -2,6 +2,7 @@ import { Dispatch, FC, SetStateAction, useState } from 'react';
 
 import { Button, Input, Select } from '~/components';
 import Modal from '~/components/modal/modal';
+import { useCurrencyOptions } from '~/hooks';
 import * as Forms from '~/modules/projects/forms';
 
 interface CreateProjectProps {
@@ -11,6 +12,7 @@ interface CreateProjectProps {
 
 const CreateProject: FC<CreateProjectProps> = ({ open, setOpen }) => {
   const [loading, setLoading] = useState(false);
+  const options = useCurrencyOptions();
 
   return (
     <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
@@ -47,6 +49,18 @@ const CreateProject: FC<CreateProjectProps> = ({ open, setOpen }) => {
                 { label: 'Uy', value: 'HOUSE' },
                 { label: 'Interior dizayn', value: 'INTERIOR_DESIGN' }
               ]}
+              error={errors.type?.message}
+            />
+            <Select
+              label={
+                <div>
+                  Pul birligi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
+                </div>
+              }
+              placeholder="Reja turini tanlang"
+              control={control}
+              name="currencyId"
+              options={options}
               error={errors.type?.message}
             />
             <div className="flex w-full items-center justify-end gap-2">

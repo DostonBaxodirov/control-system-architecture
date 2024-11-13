@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 
-import useAuth from '~/hooks/use-auth';
+import { useAuth } from '~/hooks';
 import { http } from '~/services/config';
 
+import * as Mapper from '../mapper';
 import { Plan } from '../types';
 
 type Query = {
@@ -17,8 +18,14 @@ const usePlans = () => {
     queryFn: async () => {
       const { data } = await http.post<Plan[]>('/plan/list', { userId, projectId });
 
-      return { plans: data };
-    }
+      const plans = (data || []).map(Mapper.Plan);
+
+      console.log('plans', plans);
+
+      return { plans };
+    },
+    staleTime:600000,
+    retry:false
   });
 
   return { ...data, ...args };

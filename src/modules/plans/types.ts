@@ -1,15 +1,17 @@
+import { TagProps } from '~/components/tag/tag';
+
+import { STATUS } from './constants';
+
+type TagColor = TagProps['color'];
 export interface Plan {
   id: string;
   name: string;
   createAt: string;
-  projectID: string;
+  projectId: string;
   userId: string;
-  type: string;
   duration: number;
-  unitOfMeasure: string;
-  quantity: number;
-  sumOfUnit: number;
+  countOfSubPlan: number;
   totalAmount: number;
   currency: string;
-  status: string;
+  status: { label: string; value: STATUS; variant: TagColor };
 }

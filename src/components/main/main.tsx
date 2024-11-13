@@ -42,7 +42,7 @@ const Main: FC<MainProps> = ({ children }) => {
                 {
                   key: '/plan',
                   icon: <Icon name="plan" classNameIcon="w-[18px] h-[18px]" />,
-                  label: 'Smeta reja',
+                  label: 'Smeta',
                   onClick: () => push('/plan')
                 },
                 {

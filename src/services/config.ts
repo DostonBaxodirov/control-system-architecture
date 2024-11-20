@@ -4,7 +4,7 @@ import { logout, store } from '~/store';
 
 const { dispatch } = store;
 
-let accessToken: string | null
+let accessToken: string | null;
 
 if (typeof window !== 'undefined') {
   accessToken = localStorage.getItem('accessToken');

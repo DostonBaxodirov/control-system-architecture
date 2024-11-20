@@ -2,35 +2,44 @@ import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { InferType } from 'yup';
 
 import { toast } from '~/components';
+import { useRole } from '~/modules/role/hooks';
 import { http } from '~/services';
 
+import { User } from '../types';
+
+import { TForm } from './add-user';
 import { addUserSchema } from './schema';
 
-interface AddUserProps {
+interface UpdateUserProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   onSuccess: () => void;
   children: (form: UseFormReturn<TForm>) => ReactNode;
+  user: User;
 }
 
-export type TForm = InferType<typeof addUserSchema>;
-const AddUser: FC<AddUserProps> = ({ children, setLoading,onSuccess }) => {
+const UpdateUser: FC<UpdateUserProps> = ({ children, setLoading, onSuccess, user }) => {
   const queryClient = useQueryClient();
-  const form = useForm<TForm>({ resolver: yupResolver(addUserSchema) });
+  const { roles } = useRole();
+  const getRoleId = (role: string): string => roles.filter(item => item.role === role)[0]?.id;
+
+  const form = useForm<TForm>({
+    resolver: yupResolver(addUserSchema),
+    defaultValues: { fullName: user.fullName, password: user.password, phone: user.phoneNumber, role: getRoleId(user.role) }
+  });
 
   const mutation = useMutation<any, string, TForm>({
     mutationFn: async values => {
-      const { data } = await http.post('/user', { fullName: values.fullName, password: values.password, phoneNumber: values.phone, roleId: values.role });
+      const { data } = await http.put('/user', { fullName: values.fullName, password: values.password, phoneNumber: values.phone, roleId: values.role, id: user.id });
 
       return data;
     },
     onSuccess: async values => {
       await queryClient.invalidateQueries({ queryKey: ['USERS'] });
-      toast.success('Foydalanuvchi muvofaqiyatli yaratildi!');
+      toast.success('Foydalanuvchi muvofaqiyatli yanglilandi!');
       setLoading(false);
-      onSuccess()
+      onSuccess();
     },
     onError: () => {
       toast.error("Nimadur xato bo'ldi. Iltimos qayta urunib ko'ring");
@@ -46,4 +55,4 @@ const AddUser: FC<AddUserProps> = ({ children, setLoading,onSuccess }) => {
   return <form onSubmit={form.handleSubmit(onSubmit)}>{children(form)}</form>;
 };
 
-export default AddUser;
+export default UpdateUser;

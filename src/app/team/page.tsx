@@ -2,13 +2,15 @@
 
 import { FC, useState } from 'react';
 
-import { Button, CurrencySelect, Main } from '~/components';
+import { Actions, Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
 import { useTeam } from '~/modules/team';
+import { User } from '~/modules/team/types';
 
-import { AddUser } from './_components';
+import { AddUpdateUser, DropdownRender } from './_components';
 
 const Team: FC = () => {
+  const [selectedUser, setSelectedUser] = useState<User>();
   const { isLoading, users } = useTeam();
   const [open, setOpen] = useState(false);
 
@@ -27,29 +29,42 @@ const Team: FC = () => {
       <Table
         dataSource={users}
         columns={[
-          // {
-          //   title: 'Id',
-          //   key: 'ID',
-          //   dataIndex: 'ID'
-          // },
           {
             title: 'Ism familiya',
-            key: 'FullName',
-            dataIndex: 'FullName'
+            key: 'fullName',
+            dataIndex: 'fullName'
           },
           {
             title: 'Telefon raqami',
-            key: 'PhoneNumber',
-            dataIndex: 'PhoneNumber'
+            key: 'phoneNumber',
+            dataIndex: 'phoneNumber'
           },
           {
             title: 'Role',
-            key: 'Role',
-            dataIndex: 'Role'
+            key: 'role',
+            dataIndex: 'role'
+          },
+          {
+            title: '',
+            key: 'actions',
+            render: record => (
+              <Actions
+                dropdownRender={handleClose => (
+                  <DropdownRender
+                    onEdit={() => {
+                      setSelectedUser(record);
+                      setOpen(true);
+                    }}
+                    userId={record.id}
+                    handleClose={handleClose}
+                  />
+                )}
+              />
+            )
           }
         ]}
       />
-      <AddUser open={open} setOpen={setOpen} />
+      <AddUpdateUser open={open} setOpen={setOpen} user={selectedUser} onSuccess={() => setSelectedUser(undefined)} />
     </Main>
   );
 };

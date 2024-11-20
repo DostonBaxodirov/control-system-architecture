@@ -9,6 +9,7 @@ import { useAuth } from '~/hooks';
 import { http } from '~/services';
 
 import { createProjectSchema } from './schema';
+import dayjs from 'dayjs';
 
 type TForm = InferType<typeof createProjectSchema>;
 
@@ -25,7 +26,7 @@ const CreateProject: FC<CreateProjectProps> = ({ children, setLoading, onSuccess
 
   const mutation = useMutation<unknown, string, TForm>({
     mutationFn: async values => {
-      const { data } = await http.post('/project', { ...values, userId });
+      const { data } = await http.post('/project', { ...values, userId, startDate: dayjs(values.startDate).format('YYYY.MM.DD') });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['PROJECTS'] });
@@ -41,6 +42,7 @@ const CreateProject: FC<CreateProjectProps> = ({ children, setLoading, onSuccess
   });
 
   const onSubmit = (data: TForm) => {
+    console.log('data', data);
     setLoading(true);
     mutation.mutateAsync(data);
   };

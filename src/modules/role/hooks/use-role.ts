@@ -13,7 +13,7 @@ const useRole = () => {
   const { data = initialData, ...args } = useQuery<unknown, string, TQuery>({
     queryKey: ['ROLES'],
     queryFn: async () => {
-      const { data } = await http.get('/role');
+      const { data } = await http.get<Role[]>('/role');
 
       return { roles: data };
     },

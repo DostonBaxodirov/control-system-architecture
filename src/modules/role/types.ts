@@ -1,4 +1,4 @@
 export type Role = {
-  ID: string;
-  Role: string;
+  id: string;
+  role: string;
 };

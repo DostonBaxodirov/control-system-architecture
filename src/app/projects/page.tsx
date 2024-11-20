@@ -8,10 +8,12 @@ import Table from '~/components/table/table';
 import { useProjects } from '~/modules/projects';
 
 import CreateProject from './_components/create-project';
+import { ProjectCompletion } from '~/modules/projects/forms';
 
 const Projects: FC = () => {
   const { projects, isLoading } = useProjects();
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
   return (
@@ -34,10 +36,10 @@ const Projects: FC = () => {
             dataIndex: 'name'
           },
           {
-            title: 'Yaratilgan vaqti',
-            key: 'CreatedAt',
-            dataIndex: 'createdAt',
-            render: createdAt => <p>{dayjs(createdAt).format('DD.MM.YYYY')}</p>
+            title: 'Boshlash vaqti',
+            key: 'StartDate',
+            dataIndex: 'startDate',
+            render: startDate => <p>{dayjs(startDate).format('DD.MM.YYYY')}</p>
           },
           {
             title: 'Taxminiy qiymati',
@@ -64,6 +66,28 @@ const Projects: FC = () => {
             key: 'Type',
             dataIndex: 'type',
             render: type => <p className=" capitalize">{type.toLowerCase()}</p>
+          },
+          {
+            title: 'Tugash vaqti',
+            key: 'EndDate',
+            dataIndex: 'endDate',
+            render: endDate => <p>{dayjs(endDate).format('DD.MM.YYYY') === '01.01.0001' ? '--' : dayjs(endDate).format('DD.MM.YYYY')}</p>
+          },
+          {
+            title: '',
+            key: 'Actions',
+            dataIndex: 'id',
+            render: id => (
+              <ProjectCompletion
+                setLoading={setLoading}
+                id={id}
+                children={onClick => (
+                  <Button intent="default" loading={loading} onClick={onClick} size="sm" className="w-max">
+                    Tugatish
+                  </Button>
+                )}
+              />
+            )
           }
         ]}
       />

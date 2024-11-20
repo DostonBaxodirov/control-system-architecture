@@ -1,0 +1,108 @@
+.wrapper {
+  :global(.ant-picker) {
+    height: 44px !important;
+    // border-radius: 12px;
+    border: none;
+    width: 100%;
+    background: #fff;
+  }
+  input {
+    color: #000 !important;
+    // font-family: Aeonik !important;
+    font-size: 14px !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16.8px !important;
+    letter-spacing: 0.14px;
+  }
+}
+
+.wrap-popup {
+  width: 226px !important;
+  :global(.ant-picker-header-next-btn) {
+    width: 16px !important;
+    max-width: 16px !important;
+    min-width: auto !important;
+  }
+  :global(.ant-picker-header-prev-btn) {
+    width: 16px !important;
+    max-width: 16px !important;
+    min-width: auto !important;
+  }
+  :global(.ant-picker-header-super-prev-btn) {
+    display: none !important;
+  }
+  :global(.ant-picker-header-super-next-btn) {
+    display: none !important;
+  }
+  :global(.ant-picker-cell-inner) {
+    width: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 100px !important;
+    // font-family: Aeonik !important;
+    font-size: 12px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 14.4px !important; /* 120% */
+    letter-spacing: 0.12px !important;
+    margin: 0 auto;
+  }
+  :global(.ant-picker-cell-today .ant-picker-cell-inner) {
+    background: #318170 !important;
+    color: #fff;
+    &::before {
+      display: none !important;
+    }
+    &:hover {
+      background: #27675a !important;
+      color: #fff !important;
+    }
+  }
+  :global(.ant-picker-cell-hover .ant-picker-cell-inner) {
+    background: #e6f0ee !important;
+    color: #000 !important;
+  }
+  :global(.ant-picker-cell-selected .ant-picker-cell-inner) {
+    background: #e6f0ee !important;
+    color: #000 !important;
+  }
+  :global(.ant-picker-header-view) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+  }
+  :global(.ant-picker-header-view button) {
+    color: #000;
+    // font-family: Aeonik;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19.2px; /* 120% */
+    letter-spacing: 0.16px;
+  }
+
+  td,
+  th {
+    padding: 0 !important;
+    width: 32px !important;
+    max-width: 32px !important;
+    &::before {
+      display: none !important;
+    }
+  }
+  th {
+    color: rgba(0, 0, 0, 0.4) !important;
+    text-align: center;
+    // font-family: Aeonik;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}

@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { Button, Input, Select } from '~/components';
+import { Button, DatePicker, Input, Select } from '~/components';
 import Modal from '~/components/modal/modal';
 import { useCurrencyOptions } from '~/hooks';
 import * as Forms from '~/modules/projects/forms';
@@ -33,7 +33,8 @@ const CreateProject: FC<CreateProjectProps> = ({ open, setOpen }) => {
               placeholder="Loyixa nomini kiriting"
               error={errors.name?.message}
             />
-            <Input {...register('startDate')} label="Boshlash vaqti" placeholder="Boshlanish vaqtini kiriting" error={errors.startDate?.message} />
+            {/* <Input {...register('startDate')} label="Boshlash vaqti" placeholder="Boshlanish vaqtini kiriting" error={errors.startDate?.message} /> */}
+            <DatePicker name="startDate" control={control} label="Boshlash vaqti" error={errors.startDate?.message} format="DD.MM.YYYY" />
             <Input {...register('location')} label="Joylashuv" placeholder="Joylashuvni kiriting" error={errors.location?.message} />
             <Select
               label={

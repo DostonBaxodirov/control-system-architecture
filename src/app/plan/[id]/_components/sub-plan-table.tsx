@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import dayjs from 'dayjs';
 
+import { Actions } from '~/components';
 import Table from '~/components/table/table';
 import Tag from '~/components/tag/tag';
 import { SubPlan } from '~/modules/subPlan/types';
+
+import DropdownRender from './dropdown-render';
 
 interface SubPlanTableProps {
   subPlans: SubPlan[];
@@ -73,6 +76,11 @@ const SubPlanTable: FC<SubPlanTableProps> = ({ subPlans }) => (
           key: 'status',
           dataIndex: 'status',
           render: status => <Tag color={status.variant}>{status.label}</Tag>
+        },
+        {
+          title: '',
+          key: 'actions',
+          render: record => <Actions disabled={record.role === 'OWNER'} dropdownRender={handleClose => <DropdownRender subPlan={record} handleClose={handleClose} />} />
         }
       ]}
     />

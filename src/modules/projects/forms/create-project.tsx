@@ -42,7 +42,6 @@ const CreateProject: FC<CreateProjectProps> = ({ children, setLoading, onSuccess
   });
 
   const onSubmit = (data: TForm) => {
-    console.log('data', data);
     setLoading(true);
     mutation.mutateAsync(data);
   };

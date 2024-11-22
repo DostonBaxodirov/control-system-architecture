@@ -58,11 +58,11 @@ const CreateProject: FC<CreateProjectProps> = ({ open, setOpen }) => {
                   Pul birligi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
                 </div>
               }
-              placeholder="Reja turini tanlang"
+              placeholder="Pul birligini tanlang"
               control={control}
               name="currencyId"
               options={options}
-              error={errors.type?.message}
+              error={errors.currencyId?.message}
             />
             <div className="flex w-full items-center justify-end gap-2">
               <Button size="sm" className="w-max" type="button" intent="default" disabled={loading} onClick={() => setOpen(false)}>

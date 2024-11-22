@@ -4,25 +4,25 @@ import toast from 'react-hot-toast';
 
 import { http } from '~/services';
 
-interface CompleteProjectProps {
+interface DeleteProjectProps {
   setLoading: Dispatch<SetStateAction<boolean>>;
   children: (onClick: () => void) => ReactNode;
   id: string;
-  onSuccess: ()=>void
+  onSuccess: () => void;
 }
 
-const CompleteProject: FC<CompleteProjectProps> = ({ children, setLoading, id,onSuccess }) => {
+const DeleteProject: FC<DeleteProjectProps> = ({ children, setLoading, id, onSuccess }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<unknown, string>({
     mutationFn: async () => {
-      const { data } = await http.put(`/project/complete/${id}`);
+      const { data } = await http.delete(`/project/${id}`);
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['PROJECTS'] });
       toast.success('Loyixa muvofaqiyatli yaratildi!');
       setLoading(false);
-      onSuccess()
+      onSuccess();
     },
     onError: () => {
       toast.error("Nimadur xato ketdi iltimos qayta urunib ko'ring");
@@ -38,4 +38,4 @@ const CompleteProject: FC<CompleteProjectProps> = ({ children, setLoading, id,on
   return <>{children(onClick)}</>;
 };
 
-export default CompleteProject;
+export default DeleteProject;

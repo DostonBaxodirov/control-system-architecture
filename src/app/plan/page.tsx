@@ -8,11 +8,13 @@ import { Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
 import Tag from '~/components/tag/tag';
 import usePlans from '~/modules/plans/hooks/use-plans';
+import { useProjects } from '~/modules/projects';
 
 import { CreatePlan, CreateSubPlan } from './_components';
 
 const Plan: FC = () => {
   const { plans, isLoading } = usePlans();
+  const { projects } = useProjects();
   const { push } = useRouter();
   const [open, setOpen] = useState(false);
   const [openSub, setOpenSub] = useState(false);
@@ -24,10 +26,10 @@ const Plan: FC = () => {
         <p className="text-lg font-medium">Smeta</p>
         <div className=" flex w-max gap-2">
           <CurrencySelect />
-          <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+          <Button disabled={!projects.length} intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
             Qo'shish
           </Button>
-          <Button intent="default" size="sm" className="w-max" onClick={() => setOpenSub(true)}>
+          <Button disabled={!projects.length || !plans.length} intent="default" size="sm" className="w-max" onClick={() => setOpenSub(true)}>
             Reja Qo'shish
           </Button>
         </div>

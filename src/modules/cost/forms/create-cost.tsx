@@ -35,6 +35,7 @@ const CreateCost: FC<CreateCostProps> = ({ setLoading, children, onSuccess, setC
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['COSTS'] });
+      await queryClient.invalidateQueries({ queryKey: ['PROJECTS'] });
       toast.success('Muvofaqiyatli yaratildi.');
       setLoading(false);
       form.reset();

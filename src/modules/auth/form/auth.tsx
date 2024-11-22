@@ -4,9 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 import { InferType } from 'yup';
 
+import { toast } from '~/components';
 import { login, useDispatch } from '~/store';
 
 import { authSchema } from './schema';
@@ -30,12 +30,14 @@ const Auth: FC<AuthProps> = ({ component }) => {
     },
     onSuccess: values => {
       toast.success('Logged in successfully!');
-      localStorage.setItem('accessToken', values.AccessToken);
-      dispatch(login({ userId: values.User.ID }));
+      localStorage.setItem('accessToken', values.accessToken);
+      dispatch(login({ userId: values.user.id, user: values.user }));
       push('/team');
     },
-    onError: () => {
-      toast.error('Something is wrong please try again.');
+    onError: (err: any) => {
+      if (err.response.status === 404) {
+        toast.error("Kechirasiz bunday foydalanuvchi tizimda yo'q.");
+      }
     }
   });
 

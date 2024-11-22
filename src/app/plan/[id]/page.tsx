@@ -22,9 +22,9 @@ const Single: FC<{}> = () => {
 
   return (
     <Main>
-      <div className="flex w-full items-center justify-between p-3">
+      <div className="flex w-full items-center gap-2 justify-between p-3 flex-wrap">
         <p className="text-lg font-medium">{plan.name}</p>
-        <div className=" flex w-max gap-2">
+        <div className=" flex w-full gap-2 overflow-auto">
           <CurrencySelect />
           <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
             Reja Qo'shish

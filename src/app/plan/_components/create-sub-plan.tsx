@@ -4,6 +4,7 @@ import { Button, Input, Select } from '~/components';
 import Modal from '~/components/modal/modal';
 import { usePlanOptions } from '~/hooks';
 import * as Forms from '~/modules/subPlan/forms';
+import { TypeOptions } from '~/utils/constants';
 import { useCurrencyOptions } from '~/utils/functions';
 
 interface CreateSubPlanProps {
@@ -71,14 +72,15 @@ const CreateSubPlan: FC<CreateSubPlanProps> = ({ open, setOpen, planId }) => {
                     { label: 'm³', value: 'm³' },
                     { label: 'kg', value: 'kg' },
                     { label: 'qop', value: 'qop' },
-                    { label: 'ta', value: 'ta' }
+                    { label: 'ta', value: 'ta' },
+                    { label: 'tonna', value: 'tonna' }
                   ]}
                 />
               }
             />
             <Input
               {...register('sumOfUnit')}
-              label={`Bir ${watch('unitOfMeasure')} narxini kiriting`}
+              label={`Bir "${watch('unitOfMeasure')}" narxini kiriting`}
               placeholder="Narxini kiriting"
               error={errors.sumOfUnit?.message}
               suffixClass="p-0"
@@ -117,12 +119,7 @@ const CreateSubPlan: FC<CreateSubPlanProps> = ({ open, setOpen, planId }) => {
               placeholder="Reja turini tanlang"
               control={control}
               name="type"
-              options={[
-                { label: 'Maxsulot', value: 'PRODUCT' },
-                { label: 'Yetkazib berish', value: 'DELIVERY' },
-                { label: 'Quruvchi', value: 'BUILDER' },
-                { label: 'Boshqa', value: 'OTHER' }
-              ]}
+              options={TypeOptions}
               error={errors.type?.message}
             />
             <div className="flex w-full items-center justify-end gap-2">

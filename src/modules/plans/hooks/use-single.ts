@@ -11,7 +11,7 @@ type TQuery = {
 
 const useSingle = (id: string) => {
   const initialData: TQuery = { plan: {} as Types.Plan };
-
+  
   const { data = initialData, ...args } = useQuery<unknown, string, TQuery>({
     queryKey: ['PLANS', id],
     queryFn: async () => {

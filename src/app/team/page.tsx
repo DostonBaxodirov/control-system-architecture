@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 
 import { Actions, Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
+import { useAuth } from '~/hooks';
 import { useTeam } from '~/modules/team';
 import { User } from '~/modules/team/types';
 
@@ -13,6 +14,7 @@ const Team: FC = () => {
   const [selectedUser, setSelectedUser] = useState<User>();
   const { isLoading, users } = useTeam();
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
   return (
@@ -21,9 +23,11 @@ const Team: FC = () => {
         <p className="text-lg font-medium">Jamoa</p>
         <div className=" flex w-max gap-2">
           <CurrencySelect />
-          <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
-            Qo'shish
-          </Button>
+          {user.role === 'OWNER' && (
+            <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+              Qo'shish
+            </Button>
+          )}
         </div>
       </div>
       <Table
@@ -49,6 +53,7 @@ const Team: FC = () => {
             key: 'actions',
             render: record => (
               <Actions
+                disabled={record.role === 'OWNER'}
                 dropdownRender={handleClose => (
                   <DropdownRender
                     onEdit={() => {

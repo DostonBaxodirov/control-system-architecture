@@ -14,13 +14,12 @@ const usePlans = () => {
   const initialData: Query = { plans: [] };
   const { userId, projectId } = useAuth();
   const { data = initialData, ...args } = useQuery({
-    queryKey: ['PLANS'],
+    queryKey: ['PLANS',projectId],
     queryFn: async () => {
       const { data } = await http.post<Plan[]>('/plan/list', { userId, projectId });
 
       const plans = (data || []).map(Mapper.Plan);
 
-      console.log('plans', plans);
 
       return { plans };
     },

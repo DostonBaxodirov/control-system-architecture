@@ -1,31 +1,32 @@
 import { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
 
+import { toast } from '~/components';
 import { http } from '~/services';
 
-interface CompleteProjectProps {
+interface DeleteSubPlanProps {
+  onSuccess: () => void;
   setLoading: Dispatch<SetStateAction<boolean>>;
   children: (onClick: () => void) => ReactNode;
-  id: string;
-  onSuccess: ()=>void
+  id:string
 }
 
-const CompleteProject: FC<CompleteProjectProps> = ({ children, setLoading, id,onSuccess }) => {
+const DeleteSubPlan: FC<DeleteSubPlanProps> = ({ children, setLoading, onSuccess,id }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<unknown, string>({
     mutationFn: async () => {
-      const { data } = await http.put(`/project/complete/${id}`);
+      const { data } = await http.delete(`/subPlan/${id}`);
     },
     onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['PLANS'] });
+      await queryClient.invalidateQueries({ queryKey: ['SUBPLANS'] });
       await queryClient.invalidateQueries({ queryKey: ['PROJECTS'] });
-      toast.success('Loyixa muvofaqiyatli yaratildi!');
-      setLoading(false);
-      onSuccess()
+      onSuccess();
+      toast.success("Muvofaqiyatli O'chirildi.");
     },
     onError: () => {
-      toast.error("Nimadur xato ketdi iltimos qayta urunib ko'ring");
+      toast.error("Nimadur xato ketdi, qayta urunib ko'ring.");
       setLoading(false);
     }
   });
@@ -38,4 +39,4 @@ const CompleteProject: FC<CompleteProjectProps> = ({ children, setLoading, id,on
   return <>{children(onClick)}</>;
 };
 
-export default CompleteProject;
+export default DeleteSubPlan;

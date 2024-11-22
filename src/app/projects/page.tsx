@@ -3,17 +3,17 @@
 import { FC, useState } from 'react';
 import dayjs from 'dayjs';
 
-import { Button, CurrencySelect, Main } from '~/components';
+import { Actions, Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
+import { useAuth } from '~/hooks';
 import { useProjects } from '~/modules/projects';
 
-import CreateProject from './_components/create-project';
-import { ProjectCompletion } from '~/modules/projects/forms';
+import { CreateProject, DropdownRender } from './_components';
 
 const Projects: FC = () => {
   const { projects, isLoading } = useProjects();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const { projectId } = useAuth();
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
   return (
@@ -34,6 +34,12 @@ const Projects: FC = () => {
             title: 'Nomi',
             key: 'Name',
             dataIndex: 'name'
+          },
+          {
+            title: 'Yaratilish vaqti',
+            key: 'CreatedAt',
+            dataIndex: 'createdAt',
+            render: createdAt => <p>{dayjs(createdAt).format('DD.MM.YYYY')}</p>
           },
           {
             title: 'Boshlash vaqti',
@@ -77,17 +83,7 @@ const Projects: FC = () => {
             title: '',
             key: 'Actions',
             dataIndex: 'id',
-            render: id => (
-              <ProjectCompletion
-                setLoading={setLoading}
-                id={id}
-                children={onClick => (
-                  <Button intent="default" loading={loading} onClick={onClick} size="sm" className="w-max">
-                    Tugatish
-                  </Button>
-                )}
-              />
-            )
+            render: (id, record) => <Actions disabled={record.id === projectId} dropdownRender={handleClose => <DropdownRender isEnded={record.isEnded} projectId={id} handleClose={handleClose} />} />
           }
         ]}
       />

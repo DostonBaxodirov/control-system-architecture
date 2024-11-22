@@ -7,6 +7,17 @@
     white-space: nowrap !important;
     padding: 4px 16px !important;
   }
+  :global(.ant-table-row .ant-table-cell:first-child) {
+    white-space: nowrap !important;
+    max-width: 250px;
+    width: 250px;
+    height: 55px;
+    // display: inline-block;
+    text-overflow: ellipsis;
+  }
+  :global(.ant-table-row) {
+    cursor: pointer !important;
+  }
 }
 
 .wrapper th::before {

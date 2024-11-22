@@ -9,4 +9,5 @@ export interface Project {
   spentCost: string;
   currency: string
   type: string;
+  isEnded:boolean
 }

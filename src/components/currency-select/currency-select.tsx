@@ -72,8 +72,14 @@ const CurrencySelect: FC = () => {
         )}
       >
         <div className="flex h-[34px] w-max cursor-pointer items-center justify-between gap-3 rounded-xl border border-black-8 px-2">
-          <p className="text-sm font-normal">{selectedCurrency?.amount} UZS</p>
-          <p className="rounded-md bg-black-3 p-1 text-sm font-medium">1 {selectedCurrency?.currency}</p>
+          {currencies.length ? (
+            <>
+              <p className="text-sm font-normal whitespace-nowrap">{selectedCurrency?.amount} UZS</p>
+              <p className="rounded-md bg-black-3 p-1 text-sm font-medium whitespace-nowrap">1 {selectedCurrency?.currency}</p>
+            </>
+          ) : (
+            <p className="text-sm font-normal text-stress-red-main">Pul birligi yarating!</p>
+          )}
         </div>
       </Dropdown>
       <CreateUpdateCurrency

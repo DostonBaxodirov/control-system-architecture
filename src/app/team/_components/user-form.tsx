@@ -28,7 +28,6 @@ const UserForm: FC<UserFormProps> = ({ form, loading, setOpen,forUpdate }) => {
       options = roles.map(role => ({ label: role.role, value: role.id }));
     }
 
-    console.log('options', options);
 
     return options;
   };

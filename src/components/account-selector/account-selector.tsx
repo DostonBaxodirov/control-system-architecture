@@ -65,7 +65,8 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
       setSelectedAccount(projects[0]);
       dispatch(changeProjectId({ id: projects[0].id }));
     }
-  }, [projects]);
+  }, [projects.length]);
+
 
   useEffect(() => {
     function handleClickOutside(event: any) {
@@ -116,11 +117,19 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
         )}
         placement="bottomRight"
         trigger={['click']}
-        onOpenChange={() => setOpen(!open)}
+        onOpenChange={() => {
+          if (projects.length) setOpen(!open);
+        }}
         open={!!open}
       >
         <div className="relative rounded-xl border border-black-8" onClick={e => e.stopPropagation()}>
-          <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} open={!!open} />
+          {projects.length ? (
+            <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} open={!!open} />
+          ) : (
+            <p className=" delay-400 flex h-[34px] w-full items-center justify-center  text-ellipsis  text-stress-red-main  transition-all ease-linear">
+              Sizda hali loyixalar yo'q
+            </p>
+          )}
           {projects && projects.length > 1 && (
             <div onClick={() => setOpen(!open)} className={cx('absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer', true && 'right-[-5px] rounded-xl bg-white-100')}>
               <Icon name="open" className={cls.icon} classNameIcon={cx('!w-4 !h-4 transition-all duration-500', openAccountSelector && '!w-3 !h-[17px]')} />

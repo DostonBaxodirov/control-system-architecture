@@ -1,11 +1,12 @@
 import { ReactNode, useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
 import { DatePicker as BaseDatePicker, DatePickerProps as BaseDatePickerProps } from 'antd';
-import { twMerge } from 'tailwind-merge';
 import cx from 'classnames';
+import { twMerge } from 'tailwind-merge';
+
+import Icon from '../icons/icon';
 
 import cls from './date-picker.module.scss';
-import Icon from '../icons/icon';
 
 export interface DatePickerProps extends BaseDatePickerProps {
   error?: string;

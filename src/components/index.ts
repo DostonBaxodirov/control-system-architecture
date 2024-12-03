@@ -1,8 +1,8 @@
 export { default as Actions } from './actions/actions';
 export { default as Button } from './button/button';
 export { default as CurrencySelect } from './currency-select/currency-select';
+export { default as DatePicker } from './date-picker/date-picker';
 export { default as Icon } from './icons/icon';
-export {default as DatePicker} from './date-picker/date-picker'
 export { default as Input } from './input/input';
 export { default as Main } from './main/main';
 export { default as MobileSidebar } from './mobile-sidebar/mobile-sidebar';

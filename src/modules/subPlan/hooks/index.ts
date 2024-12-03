@@ -1,1 +1,1 @@
-export {default as useSubPlans} from './use-sub-plans'
+export { default as useSubPlans } from './use-sub-plans';

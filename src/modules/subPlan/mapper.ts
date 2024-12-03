@@ -9,7 +9,7 @@ export const SubPlan = (item: any): Types.SubPlan => {
         return { label: 'Yaratilgan', value: status, variant: 'blue' };
       }
       case 'IN_PROGRESS': {
-        return { label: 'Jarayonda', value: status, variant: 'gold' };
+        return { label: 'Jarayonda', value: status, variant: 'yellow' };
       }
       default: {
         return { label: 'Tugallangan', value: status, variant: 'green' };

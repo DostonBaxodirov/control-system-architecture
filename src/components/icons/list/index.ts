@@ -11,6 +11,7 @@ export { default as menu } from './menu';
 export { default as menuSlim } from './menu-slim';
 export { default as open } from './open';
 export { default as plan } from './plan';
+export { default as play } from './play';
 export { default as project } from './project';
 export { default as successful } from './successful';
 export { default as team } from './team';

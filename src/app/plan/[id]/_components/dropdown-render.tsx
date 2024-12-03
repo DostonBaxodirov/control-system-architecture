@@ -20,7 +20,15 @@ const DropdownRender: FC<DropdownRenderProps> = ({ handleClose, subPlan }) => {
         subPlan={subPlan}
         onSuccess={handleClose}
         children={onClick => (
-          <Button intent="default" loading={loading} disabled={updateLoading} onClick={onClick} icon={<Icon classNameIcon="w-3" name="trash" />} size="sm">
+          <Button
+            intent="default"
+            loading={loading}
+            disabled={updateLoading}
+            className="justify-start"
+            onClick={onClick}
+            icon={<Icon classNameIcon="w-3" name="trash" />}
+            size="sm"
+          >
             O'chirish
           </Button>
         )}
@@ -29,13 +37,14 @@ const DropdownRender: FC<DropdownRenderProps> = ({ handleClose, subPlan }) => {
         setLoading={setUpdateLoading}
         onSuccess={handleClose}
         id={subPlan.id}
+        status={subPlan.status.value === 'CREATED' ? 'IN_PROGRESS' : 'COMPLETED'}
         children={onClick => (
           <Button
             intent="default"
             disabled={subPlan.status.value === 'COMPLETED' || loading}
             loading={updateLoading}
             onClick={onClick}
-            icon={<Icon classNameIcon="w-3" name="trash" />}
+            icon={<Icon classNameIcon="w-3" name="play" />}
             size="sm"
           >
             {subPlan.status.value === 'CREATED' ? 'Ish boshlash' : <>{subPlan.status.value === 'COMPLETED' ? 'Yakunlangan' : 'Yakunlash'}</>}

@@ -1,3 +1,4 @@
+import { Project } from '../projects/types';
 import { User } from '../team/types';
 
 export type IAuth = {
@@ -6,4 +7,5 @@ export type IAuth = {
   currencyId: string | null;
   isLoggedIn: boolean;
   user: User | null;
+  currentProject: Project | null;
 };

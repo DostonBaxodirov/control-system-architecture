@@ -4,26 +4,27 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '~/components';
 import { http } from '~/services';
 
-interface DeleteSubPlanProps {
+interface UpdateSubPlanProps {
   onSuccess: () => void;
   setLoading: Dispatch<SetStateAction<boolean>>;
   children: (onClick: () => void) => ReactNode;
-  id:string
+  id: string;
+  status: string;
 }
 
-const DeleteSubPlan: FC<DeleteSubPlanProps> = ({ children, setLoading, onSuccess,id }) => {
+const UpdateSubPlan: FC<UpdateSubPlanProps> = ({ children, setLoading, onSuccess, id, status }) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<unknown, string>({
     mutationFn: async () => {
-      const { data } = await http.delete(`/subPlan/${id}`);
+      const { data } = await http.put(`/subPlan/status`, { id, status });
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['PLANS'] });
       await queryClient.invalidateQueries({ queryKey: ['SUBPLANS'] });
-      await queryClient.invalidateQueries({ queryKey: ['PROJECTS'] });
+      await queryClient.invalidateQueries({ queryKey: ['PLANS'] });
       onSuccess();
       toast.success("Muvofaqiyatli O'chirildi.");
+      setLoading(false)
     },
     onError: () => {
       toast.error("Nimadur xato ketdi, qayta urunib ko'ring.");
@@ -39,4 +40,4 @@ const DeleteSubPlan: FC<DeleteSubPlanProps> = ({ children, setLoading, onSuccess
   return <>{children(onClick)}</>;
 };
 
-export default DeleteSubPlan;
+export default UpdateSubPlan;

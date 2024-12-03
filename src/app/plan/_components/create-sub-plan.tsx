@@ -19,7 +19,7 @@ const CreateSubPlan: FC<CreateSubPlanProps> = ({ open, setOpen, planId }) => {
   const planOptions = usePlanOptions();
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
+    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Reja yaratish</p>}>
       <Forms.CreateSubPlan
         onSuccess={() => {
           setOpen(false);
@@ -68,6 +68,7 @@ const CreateSubPlan: FC<CreateSubPlanProps> = ({ open, setOpen, planId }) => {
                   isSuffix
                   options={[
                     { label: 'm', value: 'm' },
+                    { label: 'mm', value: 'mm' },
                     { label: 'm²', value: 'm²' },
                     { label: 'm³', value: 'm³' },
                     { label: 'kg', value: 'kg' },

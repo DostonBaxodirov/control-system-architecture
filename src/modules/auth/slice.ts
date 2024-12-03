@@ -4,6 +4,7 @@ import persistStore from 'redux-persist/es/storage';
 
 import { IStore } from '~/store';
 
+import { Project } from '../projects/types';
 import { User } from '../team/types';
 
 import * as Types from './types';
@@ -13,7 +14,8 @@ const initialState: Types.IAuth = {
   projectId: null,
   currencyId: null,
   isLoggedIn: false,
-  user: null
+  user: null,
+  currentProject: null
 };
 
 const slice = createSlice({
@@ -35,17 +37,21 @@ const slice = createSlice({
     },
     changeCurrencyId(auth, { payload }: PayloadAction<{ id: string }>) {
       auth.currencyId = payload.id;
+    },
+    changeCurrentProject(auth, { payload }: PayloadAction<{ project: Project }>) {
+      auth.currentProject = payload.project;
     }
   }
 });
 
-export const { login, logout, changeProjectId, changeCurrencyId } = slice.actions;
+export const { login, logout, changeProjectId, changeCurrencyId,changeCurrentProject } = slice.actions;
 
 export const getUserId = (store: IStore) => store.auth.userId;
 export const getUser = (store: IStore) => store.auth.user;
 export const getProjectId = (store: IStore) => store.auth.projectId;
 export const getCurrencyId = (store: IStore) => store.auth.currencyId;
 export const getIsLoggedIn = (store: IStore) => store.auth.isLoggedIn;
+export const getCurrentProject = (store: IStore) => store.auth.currentProject;
 
 const persistConfig = {
   key: 'csa-auth',

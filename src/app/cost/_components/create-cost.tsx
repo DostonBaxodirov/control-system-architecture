@@ -23,7 +23,7 @@ const CreateCost: FC<CreateCostProps> = ({ open, setOpen }) => {
   const getPlanOptions = (): { label: string; value: string }[] => plans.map(item => ({ label: item.name, value: item.id }));
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
+    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Xarajat yaratish</p>}>
       <Forms.CreateCost
         onSuccess={() => {
           setOpen(false);

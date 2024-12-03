@@ -5,24 +5,31 @@ import { useAuth } from '~/hooks';
 import * as Form from '~/modules/projects/forms';
 
 interface DropdownRenderProps {
-  projectId: string;
+  id: string;
   handleClose: () => void;
   isEnded: boolean;
 }
 
-const DropdownRender: FC<DropdownRenderProps> = ({ projectId, handleClose, isEnded }) => {
+const DropdownRender: FC<DropdownRenderProps> = ({ id, handleClose, isEnded }) => {
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, projectId } = useAuth();
 
   return (
     <div className=" flex flex-col gap-2 rounded-xl border border-black-8 bg-white-100 p-2">
       <Form.Delete
         setLoading={setDeleteLoading}
         onSuccess={handleClose}
-        id={projectId}
+        id={id}
         children={onClick => (
-          <Button intent="default" disabled={user.role !== 'OWNER'} loading={deleteLoading} onClick={onClick} icon={<Icon classNameIcon="w-3" name="trash" />} size="sm">
+          <Button
+            intent="default"
+            disabled={user.role !== 'OWNER' || id === projectId}
+            loading={deleteLoading}
+            onClick={onClick}
+            icon={<Icon classNameIcon="w-3" name="trash" />}
+            size="sm"
+          >
             O'chirish
           </Button>
         )}
@@ -30,7 +37,7 @@ const DropdownRender: FC<DropdownRenderProps> = ({ projectId, handleClose, isEnd
 
       <Form.ProjectCompletion
         setLoading={setLoading}
-        id={projectId}
+        id={id}
         onSuccess={handleClose}
         children={onClick => (
           <Button intent="default" disabled={isEnded} loading={loading} onClick={onClick} icon={<Icon classNameIcon="w-3" name="editText" />} size="sm">

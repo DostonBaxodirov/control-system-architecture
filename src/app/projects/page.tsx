@@ -2,10 +2,10 @@
 
 import { FC, useState } from 'react';
 import dayjs from 'dayjs';
+import { useRouter } from 'next/navigation';
 
 import { Actions, Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
-import { useAuth } from '~/hooks';
 import { useProjects } from '~/modules/projects';
 
 import { CreateProject, DropdownRender } from './_components';
@@ -13,7 +13,7 @@ import { CreateProject, DropdownRender } from './_components';
 const Projects: FC = () => {
   const { projects, isLoading } = useProjects();
   const [open, setOpen] = useState(false);
-  const { projectId } = useAuth();
+  const { push } = useRouter();
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
   return (
@@ -22,13 +22,16 @@ const Projects: FC = () => {
         <p className="text-lg font-medium">Loyixalar</p>
         <div className=" flex w-max gap-2">
           <CurrencySelect />
-          <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+          <Button intent="green" size="sm" className="w-max" onClick={() => setOpen(true)}>
             Loyixa yaratish
           </Button>
         </div>
       </div>
       <Table
         dataSource={projects}
+        onRow={(record, rowIndex) => ({
+          onClick: () => push(`/projects/${record.id}`)
+        })}
         columns={[
           {
             title: 'Nomi',
@@ -83,7 +86,7 @@ const Projects: FC = () => {
             title: '',
             key: 'Actions',
             dataIndex: 'id',
-            render: (id, record) => <Actions disabled={record.id === projectId} dropdownRender={handleClose => <DropdownRender isEnded={record.isEnded} projectId={id} handleClose={handleClose} />} />
+            render: (id, record) => <Actions dropdownRender={handleClose => <DropdownRender isEnded={record.isEnded} id={id} handleClose={handleClose} />} />
           }
         ]}
       />

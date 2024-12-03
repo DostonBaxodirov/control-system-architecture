@@ -5,12 +5,14 @@ import dayjs from 'dayjs';
 
 import { Button, CurrencySelect, Main } from '~/components';
 import Table from '~/components/table/table';
+import { useAuth } from '~/hooks';
 import { useCosts } from '~/modules/cost/hooks';
 
 import CreateCost from './_components/create-cost';
 
 const Plan: FC = () => {
   const { isLoading, costs } = useCosts();
+  const { currentProject } = useAuth();
   const [open, setOpen] = useState(false);
 
   if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
@@ -20,7 +22,7 @@ const Plan: FC = () => {
         <p className="text-lg font-medium">Xarajatlar</p>
         <div className=" flex w-max gap-2">
           <CurrencySelect />
-          <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+          <Button disabled={currentProject.isEnded} intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
             Qo'shish
           </Button>
         </div>

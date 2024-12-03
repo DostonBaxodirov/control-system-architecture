@@ -8,7 +8,7 @@ import cx from 'classnames';
 import { useAuth } from '~/hooks';
 import { useProjects } from '~/modules/projects';
 import { Project } from '~/modules/projects/types';
-import { changeProjectId } from '~/store';
+import { changeCurrentProject, changeProjectId } from '~/store';
 
 import Icon from '../icons/icon';
 
@@ -43,11 +43,9 @@ const AccountCard: React.FC<AccountCardProps> = ({ name, id, onClick, activeSele
   </div>
 );
 
-const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccountSelector }) => {
+const AccountSelector: React.FC<AccountSelectorProps> = ({ openAccountSelector }) => {
   const [open, setOpen] = useState(false);
-  // const { isSidebar } = useUI();
   const wrapperRef = useRef(null);
-  // const { user, merchantId } = Hooks.useAuth();
   const dispatch = useDispatch();
   const { projects } = useProjects();
   const { projectId } = useAuth();
@@ -55,8 +53,11 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
   const [selectedAccount, setSelectedAccount] = useState<Project | undefined>(projectId ? projects.filter(item => item.id === projectId)[0] : projects[0]);
 
   const onClick = async (id: string) => {
-    setSelectedAccount(projects.filter(item => item.id === id)[0]);
+    const project = projects.filter(item => item.id === id)[0];
+
+    setSelectedAccount(project);
     dispatch(changeProjectId({ id }));
+    dispatch(changeCurrentProject({ project }));
   };
 
   useEffect(() => {
@@ -64,9 +65,9 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ className, openAccoun
     else if (projects.length) {
       setSelectedAccount(projects[0]);
       dispatch(changeProjectId({ id: projects[0].id }));
+      dispatch(changeCurrentProject({ project: projects[0] }));
     }
   }, [projects.length]);
-
 
   useEffect(() => {
     function handleClickOutside(event: any) {

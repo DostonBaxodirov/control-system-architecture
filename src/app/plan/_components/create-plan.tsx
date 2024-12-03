@@ -15,7 +15,7 @@ const CreatePlan: FC<CreatePlanProps> = ({ open, setOpen }) => {
   const options = useCurrencyOptions();
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
+    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Smeta yaratish</p>}>
       <Forms.CreatePlan
         onSuccess={() => {
           setOpen(false);

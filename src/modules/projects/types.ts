@@ -3,11 +3,16 @@ export interface Project {
   name: string;
   createdAt: string;
   location: string;
-  estimatedCost: string;
+  estimatedCost: number;
   startDate: string;
   endDate: string;
-  spentCost: string;
-  currency: string
+  spentCost: number;
+  currency: string;
   type: string;
-  isEnded:boolean
+  isEnded: boolean;
 }
+
+export type ProjectUser = {
+  id: string;
+  fullName: string;
+};

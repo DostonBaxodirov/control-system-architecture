@@ -25,7 +25,7 @@ const badgeVariants = cva(
         purple: "bg-tag-purple text-tag-purple",
         magenta: "bg-tag-magenta text-tag-magenta",
         "powder-blue": "bg-tag-powder-blue text-tag-powder-blue",
-        gold: "bg-tag-gold text-tag-gold"
+        // yellow: "bg-tag-yellow text-tag-yellow"
       }
     }
   }

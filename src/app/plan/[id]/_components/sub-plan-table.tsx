@@ -10,9 +10,11 @@ import DropdownRender from './dropdown-render';
 
 interface SubPlanTableProps {
   subPlans: SubPlan[];
+  planStatus: string;
+  disabled:boolean
 }
 
-const SubPlanTable: FC<SubPlanTableProps> = ({ subPlans }) => (
+const SubPlanTable: FC<SubPlanTableProps> = ({ subPlans, planStatus,disabled }) => (
   <div className=" flex flex-col gap-3">
     <p className="text-lg font-medium">Smeta rejalar</p>
     <Table
@@ -80,7 +82,12 @@ const SubPlanTable: FC<SubPlanTableProps> = ({ subPlans }) => (
         {
           title: '',
           key: 'actions',
-          render: record => <Actions disabled={record.role === 'OWNER'} dropdownRender={handleClose => <DropdownRender subPlan={record} handleClose={handleClose} />} />
+          render: record => (
+            <Actions
+              disabled={record.status.value === 'COMPLETED' || planStatus === 'COMPLETED'||disabled}
+              dropdownRender={handleClose => <DropdownRender subPlan={record} handleClose={handleClose} />}
+            />
+          )
         }
       ]}
     />

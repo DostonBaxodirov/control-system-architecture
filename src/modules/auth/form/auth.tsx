@@ -24,7 +24,7 @@ const Auth: FC<AuthProps> = ({ component }) => {
 
   const mutation = useMutation<any, string, TForm>({
     mutationFn: async values => {
-      const { data } = await axios.post('http://localhost:8080/login', { phoneNumber: `998${values.phone}`, password: values.password });
+      const { data } = await axios.post('https://dev.api.cs-architecture.uz/login', { phoneNumber: `998${values.phone}`, password: values.password });
 
       return data;
     },

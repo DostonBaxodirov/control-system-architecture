@@ -45,8 +45,6 @@ const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }
   const { projects } = useProjects();
   const { projectId } = useAuth();
 
-  console.log('projectId', projectId);
-
   const [selectedAccount, setSelectedAccount] = useState<Project | undefined>(projectId ? projects.filter(item => item.id === projectId)[0] : projects[0]);
 
   const onClick = async (id: string) => {
@@ -63,7 +61,7 @@ const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }
       setSelectedAccount(projects.find(item => item.id === projectId));
     } else if (projects.length) {
       const project = { ...projects[0] };
-      
+
       dispatch(changeProjectId({ id: project?.id || '' }));
       dispatch(changeCurrentProject({ project: project! }));
       setSelectedAccount(project);

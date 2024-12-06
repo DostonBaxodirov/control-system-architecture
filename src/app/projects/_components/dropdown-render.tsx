@@ -1,8 +1,12 @@
+'use client'
+
 import { FC, useState } from 'react';
 
 import { Button, Icon } from '~/components';
 import { useAuth } from '~/hooks';
 import * as Form from '~/modules/projects/forms';
+
+import InviteUser from './invite-user';
 
 interface DropdownRenderProps {
   id: string;
@@ -45,6 +49,7 @@ const DropdownRender: FC<DropdownRenderProps> = ({ id, handleClose, isEnded }) =
           </Button>
         )}
       />
+      <InviteUser projectId={id} />
     </div>
   );
 };

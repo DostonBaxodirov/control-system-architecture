@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Dropdown, MenuProps } from 'antd';
+import { Dropdown } from 'antd';
 import cx from 'classnames';
 
 import { useAuth } from '~/hooks';
@@ -14,41 +14,38 @@ import Icon from '../icons/icon';
 
 import cls from './account-selector.module.scss';
 
-interface AccountCardProps extends Project {
+interface ProjectCardProps extends Project {
   onClick: (id: string) => void;
   activeSelector?: boolean;
   open?: boolean;
 }
 
-export interface AccountSelectorProps {
+export interface ProjectSelectorProps {
   className?: string;
   openAccountSelector?: boolean;
 }
 
-const AccountCard: React.FC<AccountCardProps> = ({ name, id, onClick, activeSelector = false, open }) => (
+const AccountCard: React.FC<ProjectCardProps> = ({ name, id, onClick, activeSelector = false, open }) => (
   <div
-    className={cx(
-      ' flex cursor-pointer items-center gap-2 rounded-xl bg-white-100 p-1 transition-all duration-200 hover:bg-black-3',
-      activeSelector && 'bg-black-3',
-      open && 'bg-black-5'
-    )}
+    className={cx(' flex cursor-pointer items-center gap-2 rounded-xl bg-white-100 p-1 transition-all duration-200 hover:bg-black-3', activeSelector && '!bg-black-3')}
     onClick={() => {
-      if (!activeSelector) onClick(id);
+      onClick(id);
     }}
   >
-    <div className="flex h-[34px] w-[34px] min-w-[34px] items-center justify-center">
+    <div className="flex h-[34px] w-[34px] min-w-[34px] items-center justify-center rounded-lg bg-black-8">
       <p>{name && name[0].toUpperCase()}</p>
     </div>
     <p className="delay-400 inline-block w-full max-w-[70%] overflow-hidden truncate text-ellipsis whitespace-nowrap transition-all ease-linear">{name}</p>
   </div>
 );
 
-const AccountSelector: React.FC<AccountSelectorProps> = ({ openAccountSelector }) => {
+const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }) => {
   const [open, setOpen] = useState(false);
-  const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const { projects } = useProjects();
   const { projectId } = useAuth();
+
+  console.log('projectId', projectId);
 
   const [selectedAccount, setSelectedAccount] = useState<Project | undefined>(projectId ? projects.filter(item => item.id === projectId)[0] : projects[0]);
 
@@ -58,44 +55,23 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ openAccountSelector }
     setSelectedAccount(project);
     dispatch(changeProjectId({ id }));
     dispatch(changeCurrentProject({ project }));
+    setOpen(false);
   };
 
   useEffect(() => {
-    if (projectId) setSelectedAccount(projects.find(item => item.id === projectId));
-    else if (projects.length) {
-      setSelectedAccount(projects[0]);
-      dispatch(changeProjectId({ id: projects[0].id }));
-      dispatch(changeCurrentProject({ project: projects[0] }));
+    if (projectId) {
+      setSelectedAccount(projects.find(item => item.id === projectId));
+    } else if (projects.length) {
+      const project = { ...projects[0] };
+      dispatch(changeProjectId({ id: project?.id || '' }));
+      dispatch(changeCurrentProject({ project: project! }));
+      setSelectedAccount(project);
     }
   }, [projects.length]);
-
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      // @ts-ignore
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [wrapperRef]);
-
-  const items: MenuProps['items'] = projects.map((item, idx) => ({
-    key: idx,
-    label: item.id !== selectedAccount?.id && (
-      <div key={item.id} className={cx(idx !== 1 && 'mt-2')}>
-        <AccountCard {...item} onClick={onClick} />
-      </div>
-    )
-  }));
 
   return (
     <div className={cx(cls.wrapper)}>
       <Dropdown
-        menu={{ items }}
         dropdownRender={() => (
           <div
             className={cx(
@@ -105,7 +81,7 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ openAccountSelector }
               projects.length! <= 3 && 'h-auto'
             )}
           >
-            <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} activeSelector />
+            <AccountCard {...selectedAccount!} onClick={() => setOpen(false)} key={selectedAccount?.id} activeSelector />
             {projects.map(
               (item, idx) =>
                 item.id !== selectedAccount?.id && (
@@ -118,10 +94,10 @@ const AccountSelector: React.FC<AccountSelectorProps> = ({ openAccountSelector }
         )}
         placement="bottomRight"
         trigger={['click']}
-        onOpenChange={() => {
-          if (projects.length) setOpen(!open);
+        onOpenChange={open => {
+          if (projects.length) setOpen(open);
         }}
-        open={!!open}
+        open={open}
       >
         <div className="relative rounded-xl border border-black-8" onClick={e => e.stopPropagation()}>
           {projects.length ? (

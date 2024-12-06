@@ -9,20 +9,18 @@ interface AuthProps {
 
 const Auth: FC<AuthProps> = ({ children }) => {
   const pathname = usePathname();
-  const { isLoggedIn } = useAuth();
-  const [loaded, setLoaded] = useState(false);
+  const { isLoggedIn, userId } = useAuth();
+  const [loaded, setLoaded] = useState(isLoggedIn);
 
   useLayoutEffect(() => {
     function loader() {
-      if (pathname === '/auth') {
-        if (isLoggedIn) {
-          redirect('/team');
-        } else setLoaded(true);
+      if (isLoggedIn && !!userId && pathname === '/auth') {
+        redirect('/team');
       } else setLoaded(true);
     }
 
     loader();
-  }, [pathname, isLoggedIn]);
+  }, [pathname, isLoggedIn, userId]);
 
   return loaded ? children : <h1 className="m-auto flex h-screen w-full items-center justify-center">Loading...</h1>;
 };

@@ -8,5 +8,6 @@ export { default as Main } from './main/main';
 export { default as MobileSidebar } from './mobile-sidebar/mobile-sidebar';
 export { default as Select } from './select/select';
 export { default as Sidebar } from './sidebar/sidebar';
+export { default as Table } from './table/table';
 export { default as TextArea } from './textarea/textarea';
 export { default as toast } from './toast/toast';

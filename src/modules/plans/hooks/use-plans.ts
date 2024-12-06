@@ -23,7 +23,8 @@ const usePlans = (notCurrentProjectId?: string) => {
       return { plans };
     },
     staleTime: 600000,
-    retry: false
+    retry: false,
+    enabled: !!projectId
   });
 
   return { ...data, ...args };

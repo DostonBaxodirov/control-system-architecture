@@ -1,8 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useSelector } from 'react-redux';
 
 import { Project } from '~/modules/projects/types';
 import { User } from '~/modules/team/types';
-import { getCurrencyId, getCurrentProject, getIsLoggedIn, getProjectId, getUser, getUserId, logout as baseLogout } from '~/store';
+import { getCurrencyId, getCurrentProject, getIsLoggedIn, getProjectId, getUser, getUserId } from '~/store';
 
 interface TReturn {
   userId: string;
@@ -11,13 +12,10 @@ interface TReturn {
   currentProject: Project;
   isLoggedIn: boolean;
   user: User;
-  methods: {
-    logout: () => void;
-  };
 }
 
 export const useAuth = (): TReturn => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const userId = useSelector(getUserId)!;
   const user = useSelector(getUser)!;
@@ -26,10 +24,10 @@ export const useAuth = (): TReturn => {
   const currencyId = useSelector(getCurrencyId)!;
   const isLoggedIn = useSelector(getIsLoggedIn)!;
 
-  const logout = () => {
-    localStorage.setItem('accessToken', '');
-    dispatch(baseLogout());
-  };
+  // const logout = () => {
+  //   localStorage.setItem('accessToken', '');
+  //   dispatch(baseLogout());
+  // };
 
   return {
     userId,
@@ -37,9 +35,6 @@ export const useAuth = (): TReturn => {
     currentProject,
     currencyId,
     isLoggedIn,
-    user,
-    methods: {
-      logout
-    }
+    user
   };
 };

@@ -1,22 +1,26 @@
+'use client'
+
 import { FC, useState } from 'react';
 
 import { Button, Icon } from '~/components';
 import * as Form from '~/modules/team/form';
+import { User } from '~/modules/team/types';
+
+import { AddUpdateUser } from '.';
 
 interface DropdownRenderProps {
-  userId: string;
+  user: User;
   handleClose: () => void;
-  onEdit: () => void;
 }
 
-const DropdownRender: FC<DropdownRenderProps> = ({ userId, handleClose, onEdit }) => {
+const DropdownRender: FC<DropdownRenderProps> = ({ user, handleClose }) => {
   const [loading, setLoading] = useState(false);
 
   return (
     <div className=" flex flex-col gap-2 rounded-xl border border-black-8 bg-white-100 p-2">
       <Form.DeleteUser
         setLoading={setLoading}
-        userId={userId}
+        userId={user.id}
         onSuccess={handleClose}
         children={onClick => (
           <Button intent="default" loading={loading} onClick={onClick} icon={<Icon classNameIcon="w-3" name="trash" />} size="sm">
@@ -25,9 +29,7 @@ const DropdownRender: FC<DropdownRenderProps> = ({ userId, handleClose, onEdit }
         )}
       />
 
-      {/* <Button intent="default" disabled={loading} onClick={onEdit} icon={<Icon classNameIcon="w-3" name="editText" />} size="sm">
-        O'zgartish
-      </Button> */}
+      <AddUpdateUser type="update" selectedUser={user} onSuccess={handleClose} />
     </div>
   );
 };

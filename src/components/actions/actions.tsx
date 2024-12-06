@@ -1,3 +1,5 @@
+'use client';
+
 import { FC, ReactNode, useState } from 'react';
 import Dropdown from 'antd/es/dropdown/dropdown';
 import cx from 'classnames';

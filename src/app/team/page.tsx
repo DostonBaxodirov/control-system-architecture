@@ -1,77 +1,20 @@
-'use client';
+import { FC } from 'react';
 
-import { FC, useState } from 'react';
+import { CurrencySelect, Main } from '~/components';
 
-import { Actions, Button, CurrencySelect, Main } from '~/components';
-import Table from '~/components/table/table';
-import { useAuth } from '~/hooks';
-import { useTeam } from '~/modules/team';
-import { User } from '~/modules/team/types';
+import { AddUpdateUser, List } from './_components';
 
-import { AddUpdateUser, DropdownRender } from './_components';
-
-const Team: FC = () => {
-  const [selectedUser, setSelectedUser] = useState<User>();
-  const { isLoading, users } = useTeam();
-  const [open, setOpen] = useState(false);
-  const { user } = useAuth();
-
-  if (isLoading) return <div className=" flex h-screen w-full items-center justify-center text-3xl font-medium">Loading...</div>;
-  return (
-    <Main>
-      <div className="flex w-full items-center justify-between p-3">
-        <p className="text-lg font-medium">Jamoa</p>
-        <div className=" flex w-max gap-2">
-          <CurrencySelect />
-          {user.role === 'OWNER' && (
-            <Button intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
-              Qo'shish
-            </Button>
-          )}
-        </div>
+const Team: FC = () => (
+  <Main>
+    <div className="flex w-full items-center justify-between p-3">
+      <p className="text-lg font-medium">Jamoa</p>
+      <div className=" flex w-max gap-2">
+        <CurrencySelect />
+        <AddUpdateUser type="add" />
       </div>
-      <Table
-        dataSource={users}
-        columns={[
-          {
-            title: 'Ism familiya',
-            key: 'fullName',
-            dataIndex: 'fullName'
-          },
-          {
-            title: 'Telefon raqami',
-            key: 'phoneNumber',
-            dataIndex: 'phoneNumber'
-          },
-          {
-            title: 'Role',
-            key: 'role',
-            dataIndex: 'role'
-          },
-          {
-            title: '',
-            key: 'actions',
-            render: record => (
-              <Actions
-                disabled={record.role === 'OWNER'}
-                dropdownRender={handleClose => (
-                  <DropdownRender
-                    onEdit={() => {
-                      setSelectedUser(record);
-                      setOpen(true);
-                    }}
-                    userId={record.id}
-                    handleClose={handleClose}
-                  />
-                )}
-              />
-            )
-          }
-        ]}
-      />
-      <AddUpdateUser open={open} setOpen={setOpen} user={selectedUser} onSuccess={() => setSelectedUser(undefined)} />
-    </Main>
-  );
-};
+    </div>
+    <List />
+  </Main>
+);
 
 export default Team;

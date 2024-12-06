@@ -7,3 +7,7 @@ export const createProjectSchema = yup.object().shape({
     startDate: yup.string(),
     currencyId: yup.string().required("Pul birligini tanlang.")
 })
+
+export const inviteUserSchema = yup.object().shape({
+    userId: yup.string().required("Userni tanlang.")
+})

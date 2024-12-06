@@ -1,81 +1,86 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+'use client'
+
+import { FC, useState } from 'react';
 
 import { Button, DatePicker, Input, Select } from '~/components';
 import Modal from '~/components/modal/modal';
 import { useCurrencyOptions } from '~/hooks';
 import * as Forms from '~/modules/projects/forms';
 
-interface CreateProjectProps {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}
+interface CreateProjectProps {}
 
-const CreateProject: FC<CreateProjectProps> = ({ open, setOpen }) => {
+const CreateProject: FC<CreateProjectProps> = () => {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const options = useCurrencyOptions();
 
   return (
-    <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
-      <Forms.CreateProject
-        onSuccess={() => {
-          setOpen(false);
-        }}
-        setLoading={setLoading}
-        children={({ register, formState: { errors }, control }) => (
-          <div className="flex w-full flex-col gap-3">
-            <Input
-              label={
-                <div>
-                  Loyixa nomi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
-                </div>
-              }
-              {...register('name')}
-              placeholder="Loyixa nomini kiriting"
-              error={errors.name?.message}
-            />
-            {/* <Input {...register('startDate')} label="Boshlash vaqti" placeholder="Boshlanish vaqtini kiriting" error={errors.startDate?.message} /> */}
-            <DatePicker name="startDate" control={control} label="Boshlash vaqti" error={errors.startDate?.message} format="DD.MM.YYYY" />
-            <Input {...register('location')} label="Joylashuv" placeholder="Joylashuvni kiriting" error={errors.location?.message} />
-            <Select
-              label={
-                <div>
-                  Loyixa turi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
-                </div>
-              }
-              placeholder="Loyixa turini tanlang"
-              control={control}
-              name="type"
-              options={[
-                { label: 'Dom', value: 'FLAT' },
-                { label: 'Uy', value: 'HOUSE' },
-                { label: 'Interior dizayn', value: 'INTERIOR_DESIGN' }
-              ]}
-              error={errors.type?.message}
-            />
-            <Select
-              label={
-                <div>
-                  Pul birligi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
-                </div>
-              }
-              placeholder="Pul birligini tanlang"
-              control={control}
-              name="currencyId"
-              options={options}
-              error={errors.currencyId?.message}
-            />
-            <div className="flex w-full items-center justify-end gap-2">
-              <Button size="sm" className="w-max" type="button" intent="default" disabled={loading} onClick={() => setOpen(false)}>
-                Bekor qilish
-              </Button>
-              <Button size="sm" type="submit" className="w-max" loading={loading}>
-                Yaratish
-              </Button>
+    <>
+      <Button intent="green" size="sm" className="w-max" onClick={() => setOpen(true)}>
+        Loyixa yaratish
+      </Button>
+      <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Foydalanuvchi qo'shish</p>}>
+        <Forms.CreateProject
+          onSuccess={() => {
+            setOpen(false);
+          }}
+          setLoading={setLoading}
+          children={({ register, formState: { errors }, control }) => (
+            <div className="flex w-full flex-col gap-3">
+              <Input
+                label={
+                  <div>
+                    Loyixa nomi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
+                  </div>
+                }
+                {...register('name')}
+                placeholder="Loyixa nomini kiriting"
+                error={errors.name?.message}
+              />
+              {/* <Input {...register('startDate')} label="Boshlash vaqti" placeholder="Boshlanish vaqtini kiriting" error={errors.startDate?.message} /> */}
+              <DatePicker name="startDate" control={control} label="Boshlash vaqti" error={errors.startDate?.message} format="DD.MM.YYYY" />
+              <Input {...register('location')} label="Joylashuv" placeholder="Joylashuvni kiriting" error={errors.location?.message} />
+              <Select
+                label={
+                  <div>
+                    Loyixa turi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
+                  </div>
+                }
+                placeholder="Loyixa turini tanlang"
+                control={control}
+                name="type"
+                options={[
+                  { label: 'Dom', value: 'FLAT' },
+                  { label: 'Uy', value: 'HOUSE' },
+                  { label: 'Interior dizayn', value: 'INTERIOR_DESIGN' }
+                ]}
+                error={errors.type?.message}
+              />
+              <Select
+                label={
+                  <div>
+                    Pul birligi <span className="text-sm font-medium not-italic leading-[16.8px] tracking-[0.14px] text-stress-red-main">•</span>
+                  </div>
+                }
+                placeholder="Pul birligini tanlang"
+                control={control}
+                name="currencyId"
+                options={options}
+                error={errors.currencyId?.message}
+              />
+              <div className="flex w-full items-center justify-end gap-2">
+                <Button size="sm" className="w-max" type="button" intent="default" disabled={loading} onClick={() => setOpen(false)}>
+                  Bekor qilish
+                </Button>
+                <Button size="sm" type="submit" className="w-max" loading={loading}>
+                  Yaratish
+                </Button>
+              </div>
             </div>
-          </div>
-        )}
-      />
-    </Modal>
+          )}
+        />
+      </Modal>
+    </>
   );
 };
 

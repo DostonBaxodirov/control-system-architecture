@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { InferType } from 'yup';
 
 import { toast } from '~/components';
+import { config } from '~/config';
 import { login, useDispatch } from '~/store';
 
 import { authSchema } from './schema';
@@ -24,7 +25,7 @@ const Auth: FC<AuthProps> = ({ component }) => {
 
   const mutation = useMutation<any, string, TForm>({
     mutationFn: async values => {
-      const { data } = await axios.post('https://dev.api.cs-architecture.uz/login', { phoneNumber: `998${values.phone}`, password: values.password });
+      const { data } = await axios.post(`${config.backend.baseURL}/login`, { phoneNumber: `998${values.phone}`, password: values.password });
 
       return data;
     },

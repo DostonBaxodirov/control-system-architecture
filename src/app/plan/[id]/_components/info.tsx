@@ -1,15 +1,17 @@
+'use client';
+
 import { FC } from 'react';
 import dayjs from 'dayjs';
 
 import Tag from '~/components/tag/tag';
-import { Plan } from '~/modules/plans/types';
+import { useSingle } from '~/modules/plans/hooks';
 
 interface InfoProps {
-  plan: Plan;
+  id: string;
 }
 
-const Info: FC<InfoProps> = ({ plan }) => {
-  const a = '';
+const Info: FC<InfoProps> = ({ id }) => {
+  const { plan } = useSingle(id);
 
   return (
     <div className=" my-3 flex w-full flex-col">

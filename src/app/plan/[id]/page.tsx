@@ -49,7 +49,7 @@ const Single: FC<{}> = () => {
       </div>
       <Info plan={plan} />
       <SubPlanTable disabled={currentProject.isEnded} subPlans={subPlans} planStatus={plan?.status?.value} />
-      <CreateSubPlan open={open} setOpen={setOpen} planId={plan.id} />
+      <CreateSubPlan planId={plan.id} />
     </Main>
   );
 };

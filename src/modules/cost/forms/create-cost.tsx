@@ -27,7 +27,7 @@ const CreateCost: FC<CreateCostProps> = ({ setLoading, children, onSuccess, setC
 
   useEffect(() => {
     setCostOptions(() => subPlans.map(item => ({ label: item.name, value: item.name })));
-  }, [form.watch('planId'),subPlans]);
+  }, [form.watch('planId'), subPlans]);
 
   const mutation = useMutation<unknown, string, TForm>({
     mutationFn: async values => {

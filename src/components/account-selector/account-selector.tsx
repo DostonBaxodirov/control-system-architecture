@@ -63,6 +63,7 @@ const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }
       setSelectedAccount(projects.find(item => item.id === projectId));
     } else if (projects.length) {
       const project = { ...projects[0] };
+      
       dispatch(changeProjectId({ id: project?.id || '' }));
       dispatch(changeCurrentProject({ project: project! }));
       setSelectedAccount(project);

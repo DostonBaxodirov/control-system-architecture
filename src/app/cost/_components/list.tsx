@@ -7,8 +7,8 @@ import { Table, TableSkeleton } from '~/components';
 import { useCosts } from '~/modules/cost/hooks';
 
 const List = () => {
-  const searchParams = useSearchParams()
-  const { isLoading, costs } = useCosts({name:searchParams.get('costName')||'',planId:searchParams.get('planId')||''});
+  const searchParams = useSearchParams();
+  const { isLoading, costs } = useCosts({ name: searchParams.get('costName') || '', planId: searchParams.get('planId') || '' });
 
   return isLoading ? (
     <TableSkeleton />

@@ -3,16 +3,18 @@
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 
-import { Actions, Table } from '~/components';
+import { Actions, Table, TableSkeleton } from '~/components';
 import { useProjects } from '~/modules/projects';
 
 import DropdownRender from './dropdown-render';
 
 const List = () => {
-  const { projects } = useProjects();
+  const { projects,isLoading } = useProjects();
   const { push } = useRouter();
 
-  return (
+  return isLoading ? (
+    <TableSkeleton />
+  ) :(
     <Table
       dataSource={projects}
       onRow={(record, rowIndex) => ({

@@ -14,11 +14,12 @@ import Button from '../button/button';
 import Icon from '../icons/icon';
 
 import CreateUpdateCurrency from './currency-modal';
+import { Skeleton } from '..';
 
 const CurrencySelect: FC = () => {
   const dispatch = useDispatch();
   const { currencyId } = useAuth();
-  const { currencies } = useCurrency();
+  const { currencies, isLoading } = useCurrency();
   const [selectedCurrency, setSelectedCurrency] = useState<Types.Currency>();
   const [editCurrency, setEditCurrency] = useState<Types.Currency>();
   const [open, setOpen] = useState(false);
@@ -71,16 +72,20 @@ const CurrencySelect: FC = () => {
           </div>
         )}
       >
-        <div className="flex h-[34px] w-max cursor-pointer items-center justify-between gap-3 rounded-xl border border-black-8 px-2">
-          {currencies.length ? (
-            <>
-              <p className="text-sm font-normal whitespace-nowrap">{selectedCurrency?.amount} UZS</p>
-              <p className="rounded-md bg-black-3 p-1 text-sm font-medium whitespace-nowrap">1 {selectedCurrency?.currency}</p>
-            </>
-          ) : (
-            <p className="text-sm font-normal text-stress-red-main">Pul birligi yarating!</p>
-          )}
-        </div>
+        {isLoading ? (
+          <Skeleton className='w-[150px] h-[34px]'/>
+        ) : (
+          <div className="flex h-[34px] w-max cursor-pointer items-center justify-between gap-3 rounded-xl border border-black-8 px-2">
+            {currencies.length ? (
+              <>
+                <p className="whitespace-nowrap text-sm font-normal">{selectedCurrency?.amount} UZS</p>
+                <p className="whitespace-nowrap rounded-md bg-black-3 p-1 text-sm font-medium">1 {selectedCurrency?.currency}</p>
+              </>
+            ) : (
+              <p className="text-sm font-normal text-stress-red-main">Pul birligi yarating!</p>
+            )}
+          </div>
+        )}
       </Dropdown>
       <CreateUpdateCurrency
         clearEditCurrency={() => setEditCurrency(undefined)}

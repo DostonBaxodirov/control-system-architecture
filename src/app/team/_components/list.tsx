@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
 import { FC } from 'react';
 
-import { Actions, Table } from '~/components';
+import { Actions, Table, TableSkeleton } from '~/components';
 import { useTeam } from '~/modules/team';
 
 import DropdownRender from './dropdown-render';
@@ -10,7 +10,9 @@ import DropdownRender from './dropdown-render';
 const List: FC = () => {
   const { isLoading, users } = useTeam();
 
-  return (
+  return isLoading ? (
+    <TableSkeleton />
+  ) : (
     <Table
       dataSource={users}
       columns={[

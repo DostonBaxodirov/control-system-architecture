@@ -25,6 +25,11 @@ const config: Config = {
           90: '#EAF2F1',
           96: '#F7FAF9'
         },
+        status: {
+          created: 'rgba(54, 162, 222, 0.4)',
+          processing: 'rgba(222, 215, 54, 0.40)',
+          completed: 'rgba(108, 222, 54, 0.40)'
+        },
         summer: '#F2C747',
         fall: '#983A4E',
         wow: '#47F2AA',
@@ -53,6 +58,16 @@ const config: Config = {
           3: 'rgba(0, 0, 0, 0.03)'
         }
       },
+      backgroundImage: {
+        'skeleton-linear': 'linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 40%, #e5e5e5 48%)',
+        'gradient-all': 'linear-gradient(159deg, rgba(133, 133, 133, 0.20) -7.71%, rgba(133, 133, 133, 0.00) 86.28%)',
+        'gradient-processing': 'linear-gradient(159deg, rgba(222, 215, 54, 0.20) -7.71%, rgba(222, 215, 54, 0.00) 86.28%)',
+        'gradient-completed': 'linear-gradient(159deg, rgba(108, 222, 54, 0.20) -7.71%, rgba(108, 222, 54, 0.00) 86.28%)',
+        'gradient-buyer-new': 'linear-gradient(159deg, rgba(54, 222, 202, 0.20) -7.71%, rgba(54, 222, 202, 0.00) 86.28%)'
+      },
+      backgroundSize: {
+        skeleton: '200% 100%'
+      },
       backgroundColor: {
         tag: {
           green: '#CDFCCF',
@@ -66,6 +81,15 @@ const config: Config = {
           gray: '#E3E3E3',
           'light-gray': 'rgba(0, 0, 0, 0.05)',
           transparent: 'transparent'
+        }
+      },
+      animation: {
+        skeleton: 'skeleton 1.5s infinite'
+      },
+      keyframes: {
+        skeleton: {
+          '0%': { backgroundPosition: '100% 0' },
+          '100%': { backgroundPosition: '-100% 0' }
         }
       },
       boxShadow: {

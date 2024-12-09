@@ -31,6 +31,8 @@ const slice = createSlice({
       auth.userId = '';
       auth.isLoggedIn = false;
       auth.user = null;
+      auth.currencyId = null;
+      auth.currentProject = null;
     },
     changeProjectId(auth, { payload }: PayloadAction<{ id: string }>) {
       auth.projectId = payload.id;
@@ -44,7 +46,7 @@ const slice = createSlice({
   }
 });
 
-export const { login, logout, changeProjectId, changeCurrencyId,changeCurrentProject } = slice.actions;
+export const { login, logout, changeProjectId, changeCurrencyId, changeCurrentProject } = slice.actions;
 
 export const getUserId = (store: IStore) => store.auth.userId;
 export const getUser = (store: IStore) => store.auth.user;

@@ -13,6 +13,7 @@ import { changeCurrentProject, changeProjectId } from '~/store';
 import Icon from '../icons/icon';
 
 import cls from './account-selector.module.scss';
+import { Skeleton } from '../skeleton/skeleton';
 
 interface ProjectCardProps extends Project {
   onClick: (id: string) => void;
@@ -42,7 +43,7 @@ const AccountCard: React.FC<ProjectCardProps> = ({ name, id, onClick, activeSele
 const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const { projects } = useProjects();
+  const { projects, isLoading } = useProjects();
   const { projectId } = useAuth();
 
   const [selectedAccount, setSelectedAccount] = useState<Project | undefined>(projectId ? projects.filter(item => item.id === projectId)[0] : projects[0]);
@@ -98,20 +99,24 @@ const AccountSelector: React.FC<ProjectSelectorProps> = ({ openAccountSelector }
         }}
         open={open}
       >
-        <div className="relative rounded-xl border border-black-8" onClick={e => e.stopPropagation()}>
-          {projects.length ? (
-            <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} open={!!open} />
-          ) : (
-            <p className=" delay-400 flex h-[34px] w-full items-center justify-center  text-ellipsis  text-stress-red-main  transition-all ease-linear">
-              Sizda hali loyixalar yo'q
-            </p>
-          )}
-          {projects && projects.length > 1 && (
-            <div onClick={() => setOpen(!open)} className={cx('absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer', true && 'right-[-5px] rounded-xl bg-white-100')}>
-              <Icon name="open" className={cls.icon} classNameIcon={cx('!w-4 !h-4 transition-all duration-500', openAccountSelector && '!w-3 !h-[17px]')} />
-            </div>
-          )}
-        </div>
+        {isLoading ? (
+          <Skeleton className=" h-[42px] w-full" />
+        ) : (
+          <div className="relative rounded-xl border border-black-8" onClick={e => e.stopPropagation()}>
+            {projects.length ? (
+              <AccountCard {...selectedAccount!} onClick={onClick} key={selectedAccount?.id} open={!!open} />
+            ) : (
+              <p className=" delay-400 flex h-[34px] w-full items-center justify-center  text-ellipsis  text-stress-red-main  transition-all ease-linear">
+                Sizda hali loyixalar yo'q
+              </p>
+            )}
+            {projects && projects.length > 1 && (
+              <div onClick={() => setOpen(!open)} className={cx('absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer', true && 'right-[-5px] rounded-xl bg-white-100')}>
+                <Icon name="open" className={cls.icon} classNameIcon={cx('!w-4 !h-4 transition-all duration-500', openAccountSelector && '!w-3 !h-[17px]')} />
+              </div>
+            )}
+          </div>
+        )}
       </Dropdown>
     </div>
   );

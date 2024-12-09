@@ -2,17 +2,20 @@
 
 import { FC } from 'react';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { Table } from '~/components';
+import { Table, TableSkeleton } from '~/components';
 import Tag from '~/components/tag/tag';
 import { usePlans } from '~/modules/plans/hooks';
 
 const List: FC = () => {
   const { push } = useRouter();
-  const { plans, isLoading } = usePlans();
+  const searchParams = useSearchParams();
+  const { plans, isLoading } = usePlans({ status: searchParams.get('status') || '', name: searchParams.get('planName') || '' });
 
-  return (
+  return isLoading ? (
+    <TableSkeleton />
+  ) : (
     <Table
       dataSource={plans}
       onRow={(record, rowIndex) => ({

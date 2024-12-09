@@ -22,7 +22,7 @@ const CreateCost: FC<CreateCostProps> = () => {
 
   return (
     <div>
-      <Button disabled={currentProject.isEnded} intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
+      <Button disabled={currentProject?.isEnded} intent="default" size="sm" className="w-max" onClick={() => setOpen(true)}>
         Qo'shish
       </Button>
       <Modal open={open} onClose={() => setOpen(false)} onCancel={() => setOpen(false)} header={<p className=" text-xl font-medium">Xarajat yaratish</p>}>

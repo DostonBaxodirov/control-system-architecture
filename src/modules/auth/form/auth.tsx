@@ -29,11 +29,11 @@ const Auth: FC<AuthProps> = ({ component }) => {
 
       return data;
     },
-    onSuccess: values => {
+    onSuccess: async values => {
+      await localStorage.setItem('accessToken', values.accessToken);
+      await dispatch(login({ userId: values.user.id, user: values.user }));
+      await push('/team');
       toast.success('Logged in successfully!');
-      localStorage.setItem('accessToken', values.accessToken);
-      dispatch(login({ userId: values.user.id, user: values.user }));
-      push('/team');
     },
     onError: (err: any) => {
       if (err.response.status === 404) {

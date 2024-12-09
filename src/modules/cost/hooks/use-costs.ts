@@ -9,16 +9,16 @@ type TQuery = {
   costs: Types.Cost[];
 };
 
-export const useCosts = (notCurrentProjectId?: string) => {
+export const useCosts = ({ name, planId }: { name: string; planId: string }, notCurrentProjectId?: string) => {
   const { projectId } = useAuth();
   const initialData: TQuery = { costs: [] };
 
   const { data = initialData, ...args } = useQuery<unknown, string, TQuery>({
-    queryKey: ['COSTS', notCurrentProjectId || projectId],
+    queryKey: ['COSTS', notCurrentProjectId || projectId, name, planId],
     queryFn: async () => {
-      const { data } = await http.post<Types.Cost[]>('/cost/list', { projectId: notCurrentProjectId || projectId });
+      const { data } = await http.post<Types.Cost[]>('/cost/list', { projectId: notCurrentProjectId || projectId, name, planId });
 
-      return { costs: data||[] };
+      return { costs: data || [] };
     },
     staleTime: 600000,
     retry: false

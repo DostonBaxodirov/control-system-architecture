@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import dayjs from 'dayjs';
+import { useSearchParams } from 'next/navigation';
 
 import Tag from '~/components/tag/tag';
 import { useCosts } from '~/modules/cost/hooks';
@@ -13,8 +14,10 @@ interface InfoProps {
 }
 
 const Info: FC<InfoProps> = ({ project }) => {
-  const { plans } = usePlans(project?.id);
-  const { costs } = useCosts(project?.id);
+  const searchParams = useSearchParams();
+  const { plans } = usePlans({ status: searchParams.get('status') || '', name: searchParams.get('planName') || '' }, project?.id);
+
+  const { costs } = useCosts({ name: searchParams.get('costName') || '', planId: searchParams.get('planId') || '' }, project?.id);
   const { projectUsers } = useProjectUsers(project?.id);
 
   return (

@@ -33,7 +33,7 @@ const TopBar: FC<TopBarProps> = ({ id }) => {
               planId={plan.id}
               status={plan.status?.value === 'CREATED' ? 'IN_PROGRESS' : 'COMPLETED'}
               children={onClick => (
-                <Button disabled={currentProject.isEnded} intent="green" loading={loading} size="sm" className="w-max" onClick={onClick}>
+                <Button disabled={currentProject?.isEnded} intent="green" loading={loading} size="sm" className="w-max" onClick={onClick}>
                   {plan.status?.value === 'CREATED' ? 'Ish boshlash' : 'Yakunlash'}
                 </Button>
               )}

@@ -10,4 +10,6 @@ export { default as Select } from './select/select';
 export { default as Sidebar } from './sidebar/sidebar';
 export { default as Table } from './table/table';
 export { default as TextArea } from './textarea/textarea';
+export { TableSkeleton } from './table-skeleton/table-skeleton';
+export { Skeleton } from './skeleton/skeleton';
 export { default as toast } from './toast/toast';

@@ -1,4 +1,7 @@
+'use client';
+
 import { FC, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { Button, Input, Select } from '~/components';
 import Modal from '~/components/modal/modal';
@@ -17,7 +20,9 @@ const CreateSubPlan: FC<CreateSubPlanProps> = ({ planId }) => {
   const [open, setOpen] = useState(false);
   const options = useCurrencyOptions();
   const planOptions = usePlanOptions();
-  const { plans } = usePlans();
+  const searchParams = useSearchParams();
+  const { plans } = usePlans({ status: searchParams.get('status') || '', name: searchParams.get('planName') || '' });
+
   const { currentProject } = useAuth();
 
   return (

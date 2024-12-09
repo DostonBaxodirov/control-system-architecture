@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import { CurrencySelect, Main } from '~/components';
+import { Filter } from '~/components/filter/filter';
 
 import { CreateCost, List } from './_components';
 
@@ -13,7 +14,11 @@ const Plan: FC = () => (
         <CreateCost />
       </div>
     </div>
+    <div className=' w-full flex flex-col gap-4'>
+
+    <Filter page="cost" />
     <List />
+    </div>
   </Main>
 );
 

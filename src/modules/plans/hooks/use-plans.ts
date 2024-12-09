@@ -10,13 +10,22 @@ type Query = {
   plans: Plan[];
 };
 
-const usePlans = (notCurrentProjectId?: string) => {
+// type Props = {
+//   filter: { name: string; status: string };
+//   notCurrentProjectId?: string;
+// };
+
+const usePlans = ({ name, status }: { name: string; status: string }, notCurrentProjectId?: string) => {
   const initialData: Query = { plans: [] };
   const { userId, projectId } = useAuth();
   const { data = initialData, ...args } = useQuery({
-    queryKey: ['PLANS', notCurrentProjectId || projectId],
+    queryKey: ['PLANS', notCurrentProjectId! || projectId, { name, status }],
     queryFn: async () => {
-      const { data } = await http.post<Plan[]>('/plan/list', { userId, projectId: notCurrentProjectId || projectId });
+      const { data } = await http.post<Plan[]>('/plan/list', {
+        userId,
+        projectId: notCurrentProjectId! || projectId,
+        filter: { name, status: status === 'ALL' ? '' : status }
+      });
 
       const plans = (data || []).map(Mapper.Plan);
 

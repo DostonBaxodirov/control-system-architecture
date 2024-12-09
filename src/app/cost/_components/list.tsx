@@ -1,14 +1,18 @@
-'use client'
+'use client';
 
 import dayjs from 'dayjs';
+import { useSearchParams } from 'next/navigation';
 
-import { Table } from '~/components';
+import { Table, TableSkeleton } from '~/components';
 import { useCosts } from '~/modules/cost/hooks';
 
 const List = () => {
-  const { isLoading, costs } = useCosts();
+  const searchParams = useSearchParams()
+  const { isLoading, costs } = useCosts({name:searchParams.get('costName')||'',planId:searchParams.get('planId')||''});
 
-  return (
+  return isLoading ? (
+    <TableSkeleton />
+  ) : (
     <Table
       dataSource={costs}
       columns={[
@@ -48,4 +52,4 @@ const List = () => {
   );
 };
 
-export default List
+export default List;

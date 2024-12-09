@@ -12,9 +12,9 @@ import { changeCurrencyId } from '~/store';
 
 import Button from '../button/button';
 import Icon from '../icons/icon';
+import { Skeleton } from '..';
 
 import CreateUpdateCurrency from './currency-modal';
-import { Skeleton } from '..';
 
 const CurrencySelect: FC = () => {
   const dispatch = useDispatch();
@@ -73,7 +73,7 @@ const CurrencySelect: FC = () => {
         )}
       >
         {isLoading ? (
-          <Skeleton className='w-[150px] h-[34px]'/>
+          <Skeleton className="h-[34px] w-[150px]" />
         ) : (
           <div className="flex h-[34px] w-max cursor-pointer items-center justify-between gap-3 rounded-xl border border-black-8 px-2">
             {currencies.length ? (

@@ -11,9 +11,9 @@ import { Project } from '~/modules/projects/types';
 import { changeCurrentProject, changeProjectId } from '~/store';
 
 import Icon from '../icons/icon';
+import { Skeleton } from '../skeleton/skeleton';
 
 import cls from './account-selector.module.scss';
-import { Skeleton } from '../skeleton/skeleton';
 
 interface ProjectCardProps extends Project {
   onClick: (id: string) => void;
